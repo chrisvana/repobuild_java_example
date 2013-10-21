@@ -79,6 +79,29 @@ export FlockScript
 	@chmod 0755 .gen-files/flock_script.pl
 
 
+.gen-obj/.parsercompile.dummy: Parser.java .gen-files/.dummy.prereqs
+	@mkdir -p .gen-obj/lib_parser
+	@echo "Compiling:  parser (java)"
+	@mkdir -p .gen-obj/lib_parser
+	@javac -d .gen-obj/lib_parser -s .gen-files -g -cp  .:.gen-files:.gen-src:.gen-src/.gen-files:.:.gen-files:.gen-obj:.gen-obj/lib_parser:.gen-src Parser.java
+	@mkdir -p .gen-obj
+	@touch .gen-obj/.parsercompile.dummy
+
+
+.gen-obj/lib_parser/Parser.class: .gen-obj/.parsercompile.dummy .gen-files/.dummy.prereqs
+	@if [ ! -f .gen-obj/lib_parser/Parser.class ]; then echo "Class file not generated: .gen-obj/lib_parser/Parser.class, or it was generated in an unexpected location. Make sure java_root is specified correctly or the package name for the object is: Parser.class"; exit 1; fi
+	@touch .gen-obj/lib_parser/Parser.class
+
+
+.gen-obj/lib_parser/.dummy.touch: .gen-obj/lib_parser/Parser.class .gen-files/.dummy.prereqs
+	@mkdir -p .gen-obj/lib_parser
+	@touch .gen-obj/lib_parser/.dummy.touch
+
+parser: .gen-obj/lib_parser/Parser.class
+
+.PHONY: parser
+
+
 checker: .gen-obj/checker .gen-files/.dummy.prereqs
 	@ln -f -s .gen-obj/checker checker
 
@@ -101,11 +124,11 @@ checker.0:
 .PHONY: checker.0
 
 
-.gen-obj/.checkercompile.dummy: Checker.java .gen-files/.dummy.prereqs
+.gen-obj/.checkercompile.dummy: Parser.java .gen-obj/lib_parser/Parser.class Checker.java .gen-files/.dummy.prereqs
 	@mkdir -p .gen-obj/lib_checker
 	@echo "Compiling:  checker (java)"
 	@mkdir -p .gen-obj/lib_checker
-	@javac -d .gen-obj/lib_checker -s .gen-files -g -cp  .:.gen-files:.gen-src:.gen-src/.gen-files:.:.gen-files:.gen-obj:.gen-obj/lib_checker:.gen-src Checker.java
+	@javac -d .gen-obj/lib_checker -s .gen-files -g -cp  .:.gen-files:.gen-src:.gen-src/.gen-files:.:.gen-files:.gen-obj:.gen-obj/lib_checker:.gen-obj/lib_parser:.gen-src Checker.java
 	@mkdir -p .gen-obj
 	@touch .gen-obj/.checkercompile.dummy
 
@@ -120,6 +143,13 @@ checker.0:
 	@touch .gen-obj/lib_checker/.dummy.touch
 
 
+.gen-obj/.checker2E67656E2D6F626A2F6C69625F7061727365722F2E64756D6D792E746F756368.dummy: .gen-obj/lib_parser/.dummy.touch .gen-files/.dummy.prereqs
+	@mkdir -p .gen-pkg/checker
+	@FILES=$$(cd .gen-obj/lib_parser; find . -type f -o -type l); cd .gen-pkg/checker; for file in $$FILES; do mkdir -p $$(dirname $$file); RELATIVE=$$(FILE=$$(dirname $$file); while [ "$$FILE" != "." ];   do printf '../'; FILE=$$(dirname $$FILE); done);  ln -s -f $$RELATIVE../../.gen-obj/lib_parser/$$file $$file; done
+	@mkdir -p .gen-obj
+	@touch .gen-obj/.checker2E67656E2D6F626A2F6C69625F7061727365722F2E64756D6D792E746F756368.dummy
+
+
 .gen-obj/.checker2E67656E2D6F626A2F6C69625F636865636B65722F2E64756D6D792E746F756368.dummy: .gen-obj/lib_checker/.dummy.touch .gen-files/.dummy.prereqs
 	@mkdir -p .gen-pkg/checker
 	@FILES=$$(cd .gen-obj/lib_checker; find . -type f -o -type l); cd .gen-pkg/checker; for file in $$FILES; do mkdir -p $$(dirname $$file); RELATIVE=$$(FILE=$$(dirname $$file); while [ "$$FILE" != "." ];   do printf '../'; FILE=$$(dirname $$FILE); done);  ln -s -f $$RELATIVE../../.gen-obj/lib_checker/$$file $$file; done
@@ -132,7 +162,7 @@ checker.0:
 	@eval 'rm -f .gen-files/checker.manifest; for line in "Main-class: Checker"; do echo "$$line" >> .gen-files/checker.manifest; done; touch .gen-files/checker.manifest'
 
 
-.gen-obj/checker.jar: .gen-files/checker.manifest .gen-obj/.checker2E67656E2D6F626A2F6C69625F636865636B65722F2E64756D6D792E746F756368.dummy .gen-files/.dummy.prereqs
+.gen-obj/checker.jar: .gen-files/checker.manifest .gen-obj/.checker2E67656E2D6F626A2F6C69625F7061727365722F2E64756D6D792E746F756368.dummy .gen-obj/.checker2E67656E2D6F626A2F6C69625F636865636B65722F2E64756D6D792E746F756368.dummy .gen-files/.dummy.prereqs
 	@echo "Jaring:     .gen-obj/checker.jar"
 	@mkdir -p .gen-pkg/checker
 	@cd .gen-pkg/checker ; jar cfm ../../.gen-obj/checker.jar ../../.gen-files/checker.manifest $$(find . -type f -o -type l)
