@@ -79,11 +79,799 @@ export FlockScript
 	@chmod 0755 .gen-files/flock_script.pl
 
 
-.gen-obj/.parsercompile.dummy: Parser.java .gen-files/.dummy.prereqs
+.gen-src/third_party: .gen-files/.dummy.prereqs
+	@mkdir -p .gen-src; [ -d third_party ] || mkdir -p third_party; ln -f -s ../third_party .gen-src/third_party
+
+
+.gen-src/third_party/.dummy: .gen-src/third_party .gen-files/.dummy.prereqs
+	@[ -f .gen-src/third_party/.dummy ] || touch .gen-src/third_party/.dummy
+
+
+.gen-src/.gen-pkg/third_party: .gen-files/.dummy.prereqs
+	@mkdir -p .gen-src/.gen-pkg; [ -d .gen-pkg/third_party ] || mkdir -p .gen-pkg/third_party; ln -f -s ../../.gen-pkg/third_party .gen-src/.gen-pkg/third_party
+
+
+.gen-src/.gen-pkg/third_party/.dummy: .gen-src/.gen-pkg/third_party .gen-files/.dummy.prereqs
+	@[ -f .gen-src/.gen-pkg/third_party/.dummy ] || touch .gen-src/.gen-pkg/third_party/.dummy
+
+
+.gen-src/.gen-files/third_party: .gen-files/.dummy.prereqs
+	@mkdir -p .gen-src/.gen-files; [ -d .gen-files/third_party ] || mkdir -p .gen-files/third_party; ln -f -s ../../.gen-files/third_party .gen-src/.gen-files/third_party
+
+
+.gen-src/.gen-files/third_party/.dummy: .gen-src/.gen-files/third_party .gen-files/.dummy.prereqs
+	@[ -f .gen-src/.gen-files/third_party/.dummy ] || touch .gen-src/.gen-files/third_party/.dummy
+
+third_party/auto_.0: .gen-src/third_party .gen-src/.gen-pkg/third_party .gen-src/.gen-files/third_party
+
+.PHONY: third_party/auto_.0
+
+
+.gen-src/google: .gen-files/.dummy.prereqs
+	@mkdir -p .gen-src; [ -d third_party/protobuf/src/google ] || mkdir -p third_party/protobuf/src/google; ln -f -s ../third_party/protobuf/src/google .gen-src/google
+
+
+.gen-src/google/.dummy: .gen-src/google .gen-files/.dummy.prereqs
+	@[ -f .gen-src/google/.dummy ] || touch .gen-src/google/.dummy
+
+
+.gen-src/.gen-pkg/google: .gen-files/.dummy.prereqs
+	@mkdir -p .gen-src/.gen-pkg; [ -d .gen-pkg/third_party/protobuf/src/google ] || mkdir -p .gen-pkg/third_party/protobuf/src/google; ln -f -s ../../.gen-pkg/third_party/protobuf/src/google .gen-src/.gen-pkg/google
+
+
+.gen-src/.gen-pkg/google/.dummy: .gen-src/.gen-pkg/google .gen-files/.dummy.prereqs
+	@[ -f .gen-src/.gen-pkg/google/.dummy ] || touch .gen-src/.gen-pkg/google/.dummy
+
+
+.gen-src/.gen-files/google: .gen-files/.dummy.prereqs
+	@mkdir -p .gen-src/.gen-files; [ -d .gen-files/third_party/protobuf/src/google ] || mkdir -p .gen-files/third_party/protobuf/src/google; ln -f -s ../../.gen-files/third_party/protobuf/src/google .gen-src/.gen-files/google
+
+
+.gen-src/.gen-files/google/.dummy: .gen-src/.gen-files/google .gen-files/.dummy.prereqs
+	@[ -f .gen-src/.gen-files/google/.dummy ] || touch .gen-src/.gen-files/google/.dummy
+
+third_party/protobuf/auto_.0: .gen-src/google .gen-src/.gen-pkg/google .gen-src/.gen-files/google third_party/auto_.0
+
+.PHONY: third_party/protobuf/auto_.0
+
+c_compile_args.third_party/protobuf/proto_lib := -Wno-error=unused-function
+
+cc_linker_args.third_party/protobuf/proto_lib := -lz
+
+cxx_compile_args.third_party/protobuf/proto_lib := -Wno-error=unused-function
+
+headers.third_party/protobuf/proto_lib := third_party/protobuf/config.h third_party/protobuf/src/google/protobuf/descriptor.h third_party/protobuf/src/google/protobuf/descriptor.pb.h third_party/protobuf/src/google/protobuf/descriptor_database.h third_party/protobuf/src/google/protobuf/dynamic_message.h third_party/protobuf/src/google/protobuf/extension_set.h third_party/protobuf/src/google/protobuf/extension_set_heavy.cc third_party/protobuf/src/google/protobuf/generated_enum_reflection.h third_party/protobuf/src/google/protobuf/generated_message_reflection.h third_party/protobuf/src/google/protobuf/generated_message_util.h third_party/protobuf/src/google/protobuf/io/coded_stream.h third_party/protobuf/src/google/protobuf/io/coded_stream_inl.h third_party/protobuf/src/google/protobuf/io/gzip_stream.h third_party/protobuf/src/google/protobuf/io/package_info.h third_party/protobuf/src/google/protobuf/io/printer.h third_party/protobuf/src/google/protobuf/io/tokenizer.h third_party/protobuf/src/google/protobuf/io/zero_copy_stream.h third_party/protobuf/src/google/protobuf/io/zero_copy_stream_impl.h third_party/protobuf/src/google/protobuf/io/zero_copy_stream_impl_lite.h third_party/protobuf/src/google/protobuf/message.h third_party/protobuf/src/google/protobuf/message_lite.h third_party/protobuf/src/google/protobuf/package_info.h third_party/protobuf/src/google/protobuf/reflection_ops.h third_party/protobuf/src/google/protobuf/repeated_field.h third_party/protobuf/src/google/protobuf/service.h third_party/protobuf/src/google/protobuf/stubs/atomicops.h third_party/protobuf/src/google/protobuf/stubs/atomicops_internals_arm_gcc.h third_party/protobuf/src/google/protobuf/stubs/atomicops_internals_arm_qnx.h third_party/protobuf/src/google/protobuf/stubs/atomicops_internals_atomicword_compat.h third_party/protobuf/src/google/protobuf/stubs/atomicops_internals_macosx.h third_party/protobuf/src/google/protobuf/stubs/atomicops_internals_mips_gcc.h third_party/protobuf/src/google/protobuf/stubs/atomicops_internals_pnacl.h third_party/protobuf/src/google/protobuf/stubs/atomicops_internals_x86_gcc.h third_party/protobuf/src/google/protobuf/stubs/atomicops_internals_x86_msvc.h third_party/protobuf/src/google/protobuf/stubs/common.h third_party/protobuf/src/google/protobuf/stubs/hash.h third_party/protobuf/src/google/protobuf/stubs/map-util.h third_party/protobuf/src/google/protobuf/stubs/once.h third_party/protobuf/src/google/protobuf/stubs/platform_macros.h third_party/protobuf/src/google/protobuf/stubs/stl_util.h third_party/protobuf/src/google/protobuf/stubs/stringprintf.h third_party/protobuf/src/google/protobuf/stubs/strutil.h third_party/protobuf/src/google/protobuf/stubs/substitute.h third_party/protobuf/src/google/protobuf/stubs/template_util.h third_party/protobuf/src/google/protobuf/stubs/type_traits.h third_party/protobuf/src/google/protobuf/text_format.h third_party/protobuf/src/google/protobuf/unknown_field_set.h third_party/protobuf/src/google/protobuf/wire_format.h third_party/protobuf/src/google/protobuf/wire_format_lite.h third_party/protobuf/src/google/protobuf/wire_format_lite_inl.h
+
+
+.gen-obj/third_party/protobuf/src/google/protobuf/descriptor.cc.o: .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/google/.dummy .gen-src/.gen-files/google/.dummy .gen-src/.gen-pkg/google/.dummy $(headers.third_party/protobuf/proto_lib) third_party/protobuf/src/google/protobuf/descriptor.cc .gen-files/.dummy.prereqs
+	@mkdir -p .gen-obj/third_party/protobuf/src/google/protobuf
+	@echo "Compiling:  third_party/protobuf/src/google/protobuf/descriptor.cc (c++)"
+	@$(COMPILE.cc) -I -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files $(cxx_compile_args.third_party/protobuf/proto_lib) third_party/protobuf/src/google/protobuf/descriptor.cc -o .gen-obj/third_party/protobuf/src/google/protobuf/descriptor.cc.o
+
+
+.gen-obj/third_party/protobuf/src/google/protobuf/descriptor.pb.cc.o: .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/google/.dummy .gen-src/.gen-files/google/.dummy .gen-src/.gen-pkg/google/.dummy $(headers.third_party/protobuf/proto_lib) third_party/protobuf/src/google/protobuf/descriptor.pb.cc .gen-files/.dummy.prereqs
+	@mkdir -p .gen-obj/third_party/protobuf/src/google/protobuf
+	@echo "Compiling:  third_party/protobuf/src/google/protobuf/descriptor.pb.cc (c++)"
+	@$(COMPILE.cc) -I -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files $(cxx_compile_args.third_party/protobuf/proto_lib) third_party/protobuf/src/google/protobuf/descriptor.pb.cc -o .gen-obj/third_party/protobuf/src/google/protobuf/descriptor.pb.cc.o
+
+
+.gen-obj/third_party/protobuf/src/google/protobuf/descriptor_database.cc.o: .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/google/.dummy .gen-src/.gen-files/google/.dummy .gen-src/.gen-pkg/google/.dummy $(headers.third_party/protobuf/proto_lib) third_party/protobuf/src/google/protobuf/descriptor_database.cc .gen-files/.dummy.prereqs
+	@mkdir -p .gen-obj/third_party/protobuf/src/google/protobuf
+	@echo "Compiling:  third_party/protobuf/src/google/protobuf/descriptor_database.cc (c++)"
+	@$(COMPILE.cc) -I -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files $(cxx_compile_args.third_party/protobuf/proto_lib) third_party/protobuf/src/google/protobuf/descriptor_database.cc -o .gen-obj/third_party/protobuf/src/google/protobuf/descriptor_database.cc.o
+
+
+.gen-obj/third_party/protobuf/src/google/protobuf/dynamic_message.cc.o: .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/google/.dummy .gen-src/.gen-files/google/.dummy .gen-src/.gen-pkg/google/.dummy $(headers.third_party/protobuf/proto_lib) third_party/protobuf/src/google/protobuf/dynamic_message.cc .gen-files/.dummy.prereqs
+	@mkdir -p .gen-obj/third_party/protobuf/src/google/protobuf
+	@echo "Compiling:  third_party/protobuf/src/google/protobuf/dynamic_message.cc (c++)"
+	@$(COMPILE.cc) -I -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files $(cxx_compile_args.third_party/protobuf/proto_lib) third_party/protobuf/src/google/protobuf/dynamic_message.cc -o .gen-obj/third_party/protobuf/src/google/protobuf/dynamic_message.cc.o
+
+
+.gen-obj/third_party/protobuf/src/google/protobuf/extension_set.cc.o: .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/google/.dummy .gen-src/.gen-files/google/.dummy .gen-src/.gen-pkg/google/.dummy $(headers.third_party/protobuf/proto_lib) third_party/protobuf/src/google/protobuf/extension_set.cc .gen-files/.dummy.prereqs
+	@mkdir -p .gen-obj/third_party/protobuf/src/google/protobuf
+	@echo "Compiling:  third_party/protobuf/src/google/protobuf/extension_set.cc (c++)"
+	@$(COMPILE.cc) -I -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files $(cxx_compile_args.third_party/protobuf/proto_lib) third_party/protobuf/src/google/protobuf/extension_set.cc -o .gen-obj/third_party/protobuf/src/google/protobuf/extension_set.cc.o
+
+
+.gen-obj/third_party/protobuf/src/google/protobuf/extension_set_heavy.cc.o: .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/google/.dummy .gen-src/.gen-files/google/.dummy .gen-src/.gen-pkg/google/.dummy $(headers.third_party/protobuf/proto_lib) third_party/protobuf/src/google/protobuf/extension_set_heavy.cc .gen-files/.dummy.prereqs
+	@mkdir -p .gen-obj/third_party/protobuf/src/google/protobuf
+	@echo "Compiling:  third_party/protobuf/src/google/protobuf/extension_set_heavy.cc (c++)"
+	@$(COMPILE.cc) -I -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files $(cxx_compile_args.third_party/protobuf/proto_lib) third_party/protobuf/src/google/protobuf/extension_set_heavy.cc -o .gen-obj/third_party/protobuf/src/google/protobuf/extension_set_heavy.cc.o
+
+
+.gen-obj/third_party/protobuf/src/google/protobuf/generated_message_reflection.cc.o: .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/google/.dummy .gen-src/.gen-files/google/.dummy .gen-src/.gen-pkg/google/.dummy $(headers.third_party/protobuf/proto_lib) third_party/protobuf/src/google/protobuf/generated_message_reflection.cc .gen-files/.dummy.prereqs
+	@mkdir -p .gen-obj/third_party/protobuf/src/google/protobuf
+	@echo "Compiling:  third_party/protobuf/src/google/protobuf/generated_message_reflection.cc (c++)"
+	@$(COMPILE.cc) -I -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files $(cxx_compile_args.third_party/protobuf/proto_lib) third_party/protobuf/src/google/protobuf/generated_message_reflection.cc -o .gen-obj/third_party/protobuf/src/google/protobuf/generated_message_reflection.cc.o
+
+
+.gen-obj/third_party/protobuf/src/google/protobuf/generated_message_util.cc.o: .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/google/.dummy .gen-src/.gen-files/google/.dummy .gen-src/.gen-pkg/google/.dummy $(headers.third_party/protobuf/proto_lib) third_party/protobuf/src/google/protobuf/generated_message_util.cc .gen-files/.dummy.prereqs
+	@mkdir -p .gen-obj/third_party/protobuf/src/google/protobuf
+	@echo "Compiling:  third_party/protobuf/src/google/protobuf/generated_message_util.cc (c++)"
+	@$(COMPILE.cc) -I -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files $(cxx_compile_args.third_party/protobuf/proto_lib) third_party/protobuf/src/google/protobuf/generated_message_util.cc -o .gen-obj/third_party/protobuf/src/google/protobuf/generated_message_util.cc.o
+
+
+.gen-obj/third_party/protobuf/src/google/protobuf/io/coded_stream.cc.o: .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/google/.dummy .gen-src/.gen-files/google/.dummy .gen-src/.gen-pkg/google/.dummy $(headers.third_party/protobuf/proto_lib) third_party/protobuf/src/google/protobuf/io/coded_stream.cc .gen-files/.dummy.prereqs
+	@mkdir -p .gen-obj/third_party/protobuf/src/google/protobuf/io
+	@echo "Compiling:  third_party/protobuf/src/google/protobuf/io/coded_stream.cc (c++)"
+	@$(COMPILE.cc) -I -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files $(cxx_compile_args.third_party/protobuf/proto_lib) third_party/protobuf/src/google/protobuf/io/coded_stream.cc -o .gen-obj/third_party/protobuf/src/google/protobuf/io/coded_stream.cc.o
+
+
+.gen-obj/third_party/protobuf/src/google/protobuf/io/gzip_stream.cc.o: .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/google/.dummy .gen-src/.gen-files/google/.dummy .gen-src/.gen-pkg/google/.dummy $(headers.third_party/protobuf/proto_lib) third_party/protobuf/src/google/protobuf/io/gzip_stream.cc .gen-files/.dummy.prereqs
+	@mkdir -p .gen-obj/third_party/protobuf/src/google/protobuf/io
+	@echo "Compiling:  third_party/protobuf/src/google/protobuf/io/gzip_stream.cc (c++)"
+	@$(COMPILE.cc) -I -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files $(cxx_compile_args.third_party/protobuf/proto_lib) third_party/protobuf/src/google/protobuf/io/gzip_stream.cc -o .gen-obj/third_party/protobuf/src/google/protobuf/io/gzip_stream.cc.o
+
+
+.gen-obj/third_party/protobuf/src/google/protobuf/io/printer.cc.o: .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/google/.dummy .gen-src/.gen-files/google/.dummy .gen-src/.gen-pkg/google/.dummy $(headers.third_party/protobuf/proto_lib) third_party/protobuf/src/google/protobuf/io/printer.cc .gen-files/.dummy.prereqs
+	@mkdir -p .gen-obj/third_party/protobuf/src/google/protobuf/io
+	@echo "Compiling:  third_party/protobuf/src/google/protobuf/io/printer.cc (c++)"
+	@$(COMPILE.cc) -I -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files $(cxx_compile_args.third_party/protobuf/proto_lib) third_party/protobuf/src/google/protobuf/io/printer.cc -o .gen-obj/third_party/protobuf/src/google/protobuf/io/printer.cc.o
+
+
+.gen-obj/third_party/protobuf/src/google/protobuf/io/tokenizer.cc.o: .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/google/.dummy .gen-src/.gen-files/google/.dummy .gen-src/.gen-pkg/google/.dummy $(headers.third_party/protobuf/proto_lib) third_party/protobuf/src/google/protobuf/io/tokenizer.cc .gen-files/.dummy.prereqs
+	@mkdir -p .gen-obj/third_party/protobuf/src/google/protobuf/io
+	@echo "Compiling:  third_party/protobuf/src/google/protobuf/io/tokenizer.cc (c++)"
+	@$(COMPILE.cc) -I -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files $(cxx_compile_args.third_party/protobuf/proto_lib) third_party/protobuf/src/google/protobuf/io/tokenizer.cc -o .gen-obj/third_party/protobuf/src/google/protobuf/io/tokenizer.cc.o
+
+
+.gen-obj/third_party/protobuf/src/google/protobuf/io/zero_copy_stream.cc.o: .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/google/.dummy .gen-src/.gen-files/google/.dummy .gen-src/.gen-pkg/google/.dummy $(headers.third_party/protobuf/proto_lib) third_party/protobuf/src/google/protobuf/io/zero_copy_stream.cc .gen-files/.dummy.prereqs
+	@mkdir -p .gen-obj/third_party/protobuf/src/google/protobuf/io
+	@echo "Compiling:  third_party/protobuf/src/google/protobuf/io/zero_copy_stream.cc (c++)"
+	@$(COMPILE.cc) -I -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files $(cxx_compile_args.third_party/protobuf/proto_lib) third_party/protobuf/src/google/protobuf/io/zero_copy_stream.cc -o .gen-obj/third_party/protobuf/src/google/protobuf/io/zero_copy_stream.cc.o
+
+
+.gen-obj/third_party/protobuf/src/google/protobuf/io/zero_copy_stream_impl.cc.o: .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/google/.dummy .gen-src/.gen-files/google/.dummy .gen-src/.gen-pkg/google/.dummy $(headers.third_party/protobuf/proto_lib) third_party/protobuf/src/google/protobuf/io/zero_copy_stream_impl.cc .gen-files/.dummy.prereqs
+	@mkdir -p .gen-obj/third_party/protobuf/src/google/protobuf/io
+	@echo "Compiling:  third_party/protobuf/src/google/protobuf/io/zero_copy_stream_impl.cc (c++)"
+	@$(COMPILE.cc) -I -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files $(cxx_compile_args.third_party/protobuf/proto_lib) third_party/protobuf/src/google/protobuf/io/zero_copy_stream_impl.cc -o .gen-obj/third_party/protobuf/src/google/protobuf/io/zero_copy_stream_impl.cc.o
+
+
+.gen-obj/third_party/protobuf/src/google/protobuf/io/zero_copy_stream_impl_lite.cc.o: .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/google/.dummy .gen-src/.gen-files/google/.dummy .gen-src/.gen-pkg/google/.dummy $(headers.third_party/protobuf/proto_lib) third_party/protobuf/src/google/protobuf/io/zero_copy_stream_impl_lite.cc .gen-files/.dummy.prereqs
+	@mkdir -p .gen-obj/third_party/protobuf/src/google/protobuf/io
+	@echo "Compiling:  third_party/protobuf/src/google/protobuf/io/zero_copy_stream_impl_lite.cc (c++)"
+	@$(COMPILE.cc) -I -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files $(cxx_compile_args.third_party/protobuf/proto_lib) third_party/protobuf/src/google/protobuf/io/zero_copy_stream_impl_lite.cc -o .gen-obj/third_party/protobuf/src/google/protobuf/io/zero_copy_stream_impl_lite.cc.o
+
+
+.gen-obj/third_party/protobuf/src/google/protobuf/message.cc.o: .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/google/.dummy .gen-src/.gen-files/google/.dummy .gen-src/.gen-pkg/google/.dummy $(headers.third_party/protobuf/proto_lib) third_party/protobuf/src/google/protobuf/message.cc .gen-files/.dummy.prereqs
+	@mkdir -p .gen-obj/third_party/protobuf/src/google/protobuf
+	@echo "Compiling:  third_party/protobuf/src/google/protobuf/message.cc (c++)"
+	@$(COMPILE.cc) -I -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files $(cxx_compile_args.third_party/protobuf/proto_lib) third_party/protobuf/src/google/protobuf/message.cc -o .gen-obj/third_party/protobuf/src/google/protobuf/message.cc.o
+
+
+.gen-obj/third_party/protobuf/src/google/protobuf/message_lite.cc.o: .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/google/.dummy .gen-src/.gen-files/google/.dummy .gen-src/.gen-pkg/google/.dummy $(headers.third_party/protobuf/proto_lib) third_party/protobuf/src/google/protobuf/message_lite.cc .gen-files/.dummy.prereqs
+	@mkdir -p .gen-obj/third_party/protobuf/src/google/protobuf
+	@echo "Compiling:  third_party/protobuf/src/google/protobuf/message_lite.cc (c++)"
+	@$(COMPILE.cc) -I -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files $(cxx_compile_args.third_party/protobuf/proto_lib) third_party/protobuf/src/google/protobuf/message_lite.cc -o .gen-obj/third_party/protobuf/src/google/protobuf/message_lite.cc.o
+
+
+.gen-obj/third_party/protobuf/src/google/protobuf/reflection_ops.cc.o: .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/google/.dummy .gen-src/.gen-files/google/.dummy .gen-src/.gen-pkg/google/.dummy $(headers.third_party/protobuf/proto_lib) third_party/protobuf/src/google/protobuf/reflection_ops.cc .gen-files/.dummy.prereqs
+	@mkdir -p .gen-obj/third_party/protobuf/src/google/protobuf
+	@echo "Compiling:  third_party/protobuf/src/google/protobuf/reflection_ops.cc (c++)"
+	@$(COMPILE.cc) -I -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files $(cxx_compile_args.third_party/protobuf/proto_lib) third_party/protobuf/src/google/protobuf/reflection_ops.cc -o .gen-obj/third_party/protobuf/src/google/protobuf/reflection_ops.cc.o
+
+
+.gen-obj/third_party/protobuf/src/google/protobuf/repeated_field.cc.o: .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/google/.dummy .gen-src/.gen-files/google/.dummy .gen-src/.gen-pkg/google/.dummy $(headers.third_party/protobuf/proto_lib) third_party/protobuf/src/google/protobuf/repeated_field.cc .gen-files/.dummy.prereqs
+	@mkdir -p .gen-obj/third_party/protobuf/src/google/protobuf
+	@echo "Compiling:  third_party/protobuf/src/google/protobuf/repeated_field.cc (c++)"
+	@$(COMPILE.cc) -I -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files $(cxx_compile_args.third_party/protobuf/proto_lib) third_party/protobuf/src/google/protobuf/repeated_field.cc -o .gen-obj/third_party/protobuf/src/google/protobuf/repeated_field.cc.o
+
+
+.gen-obj/third_party/protobuf/src/google/protobuf/service.cc.o: .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/google/.dummy .gen-src/.gen-files/google/.dummy .gen-src/.gen-pkg/google/.dummy $(headers.third_party/protobuf/proto_lib) third_party/protobuf/src/google/protobuf/service.cc .gen-files/.dummy.prereqs
+	@mkdir -p .gen-obj/third_party/protobuf/src/google/protobuf
+	@echo "Compiling:  third_party/protobuf/src/google/protobuf/service.cc (c++)"
+	@$(COMPILE.cc) -I -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files $(cxx_compile_args.third_party/protobuf/proto_lib) third_party/protobuf/src/google/protobuf/service.cc -o .gen-obj/third_party/protobuf/src/google/protobuf/service.cc.o
+
+
+.gen-obj/third_party/protobuf/src/google/protobuf/stubs/atomicops_internals_x86_gcc.cc.o: .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/google/.dummy .gen-src/.gen-files/google/.dummy .gen-src/.gen-pkg/google/.dummy $(headers.third_party/protobuf/proto_lib) third_party/protobuf/src/google/protobuf/stubs/atomicops_internals_x86_gcc.cc .gen-files/.dummy.prereqs
+	@mkdir -p .gen-obj/third_party/protobuf/src/google/protobuf/stubs
+	@echo "Compiling:  third_party/protobuf/src/google/protobuf/stubs/atomicops_internals_x86_gcc.cc (c++)"
+	@$(COMPILE.cc) -I -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files $(cxx_compile_args.third_party/protobuf/proto_lib) third_party/protobuf/src/google/protobuf/stubs/atomicops_internals_x86_gcc.cc -o .gen-obj/third_party/protobuf/src/google/protobuf/stubs/atomicops_internals_x86_gcc.cc.o
+
+
+.gen-obj/third_party/protobuf/src/google/protobuf/stubs/atomicops_internals_x86_msvc.cc.o: .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/google/.dummy .gen-src/.gen-files/google/.dummy .gen-src/.gen-pkg/google/.dummy $(headers.third_party/protobuf/proto_lib) third_party/protobuf/src/google/protobuf/stubs/atomicops_internals_x86_msvc.cc .gen-files/.dummy.prereqs
+	@mkdir -p .gen-obj/third_party/protobuf/src/google/protobuf/stubs
+	@echo "Compiling:  third_party/protobuf/src/google/protobuf/stubs/atomicops_internals_x86_msvc.cc (c++)"
+	@$(COMPILE.cc) -I -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files $(cxx_compile_args.third_party/protobuf/proto_lib) third_party/protobuf/src/google/protobuf/stubs/atomicops_internals_x86_msvc.cc -o .gen-obj/third_party/protobuf/src/google/protobuf/stubs/atomicops_internals_x86_msvc.cc.o
+
+
+.gen-obj/third_party/protobuf/src/google/protobuf/stubs/common.cc.o: .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/google/.dummy .gen-src/.gen-files/google/.dummy .gen-src/.gen-pkg/google/.dummy $(headers.third_party/protobuf/proto_lib) third_party/protobuf/src/google/protobuf/stubs/common.cc .gen-files/.dummy.prereqs
+	@mkdir -p .gen-obj/third_party/protobuf/src/google/protobuf/stubs
+	@echo "Compiling:  third_party/protobuf/src/google/protobuf/stubs/common.cc (c++)"
+	@$(COMPILE.cc) -I -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files $(cxx_compile_args.third_party/protobuf/proto_lib) third_party/protobuf/src/google/protobuf/stubs/common.cc -o .gen-obj/third_party/protobuf/src/google/protobuf/stubs/common.cc.o
+
+
+.gen-obj/third_party/protobuf/src/google/protobuf/stubs/once.cc.o: .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/google/.dummy .gen-src/.gen-files/google/.dummy .gen-src/.gen-pkg/google/.dummy $(headers.third_party/protobuf/proto_lib) third_party/protobuf/src/google/protobuf/stubs/once.cc .gen-files/.dummy.prereqs
+	@mkdir -p .gen-obj/third_party/protobuf/src/google/protobuf/stubs
+	@echo "Compiling:  third_party/protobuf/src/google/protobuf/stubs/once.cc (c++)"
+	@$(COMPILE.cc) -I -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files $(cxx_compile_args.third_party/protobuf/proto_lib) third_party/protobuf/src/google/protobuf/stubs/once.cc -o .gen-obj/third_party/protobuf/src/google/protobuf/stubs/once.cc.o
+
+
+.gen-obj/third_party/protobuf/src/google/protobuf/stubs/stringprintf.cc.o: .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/google/.dummy .gen-src/.gen-files/google/.dummy .gen-src/.gen-pkg/google/.dummy $(headers.third_party/protobuf/proto_lib) third_party/protobuf/src/google/protobuf/stubs/stringprintf.cc .gen-files/.dummy.prereqs
+	@mkdir -p .gen-obj/third_party/protobuf/src/google/protobuf/stubs
+	@echo "Compiling:  third_party/protobuf/src/google/protobuf/stubs/stringprintf.cc (c++)"
+	@$(COMPILE.cc) -I -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files $(cxx_compile_args.third_party/protobuf/proto_lib) third_party/protobuf/src/google/protobuf/stubs/stringprintf.cc -o .gen-obj/third_party/protobuf/src/google/protobuf/stubs/stringprintf.cc.o
+
+
+.gen-obj/third_party/protobuf/src/google/protobuf/stubs/structurally_valid.cc.o: .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/google/.dummy .gen-src/.gen-files/google/.dummy .gen-src/.gen-pkg/google/.dummy $(headers.third_party/protobuf/proto_lib) third_party/protobuf/src/google/protobuf/stubs/structurally_valid.cc .gen-files/.dummy.prereqs
+	@mkdir -p .gen-obj/third_party/protobuf/src/google/protobuf/stubs
+	@echo "Compiling:  third_party/protobuf/src/google/protobuf/stubs/structurally_valid.cc (c++)"
+	@$(COMPILE.cc) -I -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files $(cxx_compile_args.third_party/protobuf/proto_lib) third_party/protobuf/src/google/protobuf/stubs/structurally_valid.cc -o .gen-obj/third_party/protobuf/src/google/protobuf/stubs/structurally_valid.cc.o
+
+
+.gen-obj/third_party/protobuf/src/google/protobuf/stubs/strutil.cc.o: .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/google/.dummy .gen-src/.gen-files/google/.dummy .gen-src/.gen-pkg/google/.dummy $(headers.third_party/protobuf/proto_lib) third_party/protobuf/src/google/protobuf/stubs/strutil.cc .gen-files/.dummy.prereqs
+	@mkdir -p .gen-obj/third_party/protobuf/src/google/protobuf/stubs
+	@echo "Compiling:  third_party/protobuf/src/google/protobuf/stubs/strutil.cc (c++)"
+	@$(COMPILE.cc) -I -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files $(cxx_compile_args.third_party/protobuf/proto_lib) third_party/protobuf/src/google/protobuf/stubs/strutil.cc -o .gen-obj/third_party/protobuf/src/google/protobuf/stubs/strutil.cc.o
+
+
+.gen-obj/third_party/protobuf/src/google/protobuf/stubs/substitute.cc.o: .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/google/.dummy .gen-src/.gen-files/google/.dummy .gen-src/.gen-pkg/google/.dummy $(headers.third_party/protobuf/proto_lib) third_party/protobuf/src/google/protobuf/stubs/substitute.cc .gen-files/.dummy.prereqs
+	@mkdir -p .gen-obj/third_party/protobuf/src/google/protobuf/stubs
+	@echo "Compiling:  third_party/protobuf/src/google/protobuf/stubs/substitute.cc (c++)"
+	@$(COMPILE.cc) -I -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files $(cxx_compile_args.third_party/protobuf/proto_lib) third_party/protobuf/src/google/protobuf/stubs/substitute.cc -o .gen-obj/third_party/protobuf/src/google/protobuf/stubs/substitute.cc.o
+
+
+.gen-obj/third_party/protobuf/src/google/protobuf/text_format.cc.o: .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/google/.dummy .gen-src/.gen-files/google/.dummy .gen-src/.gen-pkg/google/.dummy $(headers.third_party/protobuf/proto_lib) third_party/protobuf/src/google/protobuf/text_format.cc .gen-files/.dummy.prereqs
+	@mkdir -p .gen-obj/third_party/protobuf/src/google/protobuf
+	@echo "Compiling:  third_party/protobuf/src/google/protobuf/text_format.cc (c++)"
+	@$(COMPILE.cc) -I -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files $(cxx_compile_args.third_party/protobuf/proto_lib) third_party/protobuf/src/google/protobuf/text_format.cc -o .gen-obj/third_party/protobuf/src/google/protobuf/text_format.cc.o
+
+
+.gen-obj/third_party/protobuf/src/google/protobuf/unknown_field_set.cc.o: .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/google/.dummy .gen-src/.gen-files/google/.dummy .gen-src/.gen-pkg/google/.dummy $(headers.third_party/protobuf/proto_lib) third_party/protobuf/src/google/protobuf/unknown_field_set.cc .gen-files/.dummy.prereqs
+	@mkdir -p .gen-obj/third_party/protobuf/src/google/protobuf
+	@echo "Compiling:  third_party/protobuf/src/google/protobuf/unknown_field_set.cc (c++)"
+	@$(COMPILE.cc) -I -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files $(cxx_compile_args.third_party/protobuf/proto_lib) third_party/protobuf/src/google/protobuf/unknown_field_set.cc -o .gen-obj/third_party/protobuf/src/google/protobuf/unknown_field_set.cc.o
+
+
+.gen-obj/third_party/protobuf/src/google/protobuf/wire_format.cc.o: .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/google/.dummy .gen-src/.gen-files/google/.dummy .gen-src/.gen-pkg/google/.dummy $(headers.third_party/protobuf/proto_lib) third_party/protobuf/src/google/protobuf/wire_format.cc .gen-files/.dummy.prereqs
+	@mkdir -p .gen-obj/third_party/protobuf/src/google/protobuf
+	@echo "Compiling:  third_party/protobuf/src/google/protobuf/wire_format.cc (c++)"
+	@$(COMPILE.cc) -I -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files $(cxx_compile_args.third_party/protobuf/proto_lib) third_party/protobuf/src/google/protobuf/wire_format.cc -o .gen-obj/third_party/protobuf/src/google/protobuf/wire_format.cc.o
+
+
+.gen-obj/third_party/protobuf/src/google/protobuf/wire_format_lite.cc.o: .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/google/.dummy .gen-src/.gen-files/google/.dummy .gen-src/.gen-pkg/google/.dummy $(headers.third_party/protobuf/proto_lib) third_party/protobuf/src/google/protobuf/wire_format_lite.cc .gen-files/.dummy.prereqs
+	@mkdir -p .gen-obj/third_party/protobuf/src/google/protobuf
+	@echo "Compiling:  third_party/protobuf/src/google/protobuf/wire_format_lite.cc (c++)"
+	@$(COMPILE.cc) -I -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files $(cxx_compile_args.third_party/protobuf/proto_lib) third_party/protobuf/src/google/protobuf/wire_format_lite.cc -o .gen-obj/third_party/protobuf/src/google/protobuf/wire_format_lite.cc.o
+
+third_party/protobuf/proto_lib: .gen-obj/third_party/protobuf/src/google/protobuf/descriptor.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/descriptor.pb.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/descriptor_database.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/dynamic_message.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/extension_set.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/extension_set_heavy.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/generated_message_reflection.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/generated_message_util.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/io/coded_stream.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/io/gzip_stream.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/io/printer.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/io/tokenizer.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/io/zero_copy_stream.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/io/zero_copy_stream_impl.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/io/zero_copy_stream_impl_lite.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/message.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/message_lite.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/reflection_ops.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/repeated_field.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/service.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/stubs/atomicops_internals_x86_gcc.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/stubs/atomicops_internals_x86_msvc.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/stubs/common.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/stubs/once.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/stubs/stringprintf.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/stubs/structurally_valid.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/stubs/strutil.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/stubs/substitute.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/text_format.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/unknown_field_set.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/wire_format.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/wire_format_lite.cc.o third_party/protobuf/auto_.0 third_party/auto_.0
+
+.PHONY: third_party/protobuf/proto_lib
+
+headers.third_party/protobuf/protoc_lib := third_party/protobuf/src/google/protobuf/compiler/code_generator.h third_party/protobuf/src/google/protobuf/compiler/command_line_interface.h third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_enum.h third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_enum_field.h third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_extension.h third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_field.h third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_file.h third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_generator.h third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_helpers.cc third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_helpers.h third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_message.h third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_message_field.h third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_options.h third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_primitive_field.h third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_service.h third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_string_field.h third_party/protobuf/src/google/protobuf/compiler/importer.h third_party/protobuf/src/google/protobuf/compiler/java/java_doc_comment.h third_party/protobuf/src/google/protobuf/compiler/java/java_enum.h third_party/protobuf/src/google/protobuf/compiler/java/java_enum_field.h third_party/protobuf/src/google/protobuf/compiler/java/java_extension.h third_party/protobuf/src/google/protobuf/compiler/java/java_field.h third_party/protobuf/src/google/protobuf/compiler/java/java_file.h third_party/protobuf/src/google/protobuf/compiler/java/java_generator.h third_party/protobuf/src/google/protobuf/compiler/java/java_helpers.cc third_party/protobuf/src/google/protobuf/compiler/java/java_helpers.h third_party/protobuf/src/google/protobuf/compiler/java/java_message.h third_party/protobuf/src/google/protobuf/compiler/java/java_message_field.h third_party/protobuf/src/google/protobuf/compiler/java/java_primitive_field.h third_party/protobuf/src/google/protobuf/compiler/java/java_service.h third_party/protobuf/src/google/protobuf/compiler/java/java_string_field.h third_party/protobuf/src/google/protobuf/compiler/package_info.h third_party/protobuf/src/google/protobuf/compiler/parser.h third_party/protobuf/src/google/protobuf/compiler/plugin.h third_party/protobuf/src/google/protobuf/compiler/plugin.pb.h third_party/protobuf/src/google/protobuf/compiler/python third_party/protobuf/src/google/protobuf/compiler/python/python_generator.cc third_party/protobuf/src/google/protobuf/compiler/python/python_generator.h third_party/protobuf/src/google/protobuf/compiler/subprocess.h third_party/protobuf/src/google/protobuf/compiler/zip_writer.h
+
+
+.gen-obj/third_party/protobuf/src/google/protobuf/compiler/code_generator.cc.o: .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/google/.dummy .gen-src/.gen-files/google/.dummy .gen-src/.gen-pkg/google/.dummy $(headers.third_party/protobuf/proto_lib) $(headers.third_party/protobuf/protoc_lib) third_party/protobuf/src/google/protobuf/compiler/code_generator.cc .gen-files/.dummy.prereqs
+	@mkdir -p .gen-obj/third_party/protobuf/src/google/protobuf/compiler
+	@echo "Compiling:  third_party/protobuf/src/google/protobuf/compiler/code_generator.cc (c++)"
+	@$(COMPILE.cc) -I -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files third_party/protobuf/src/google/protobuf/compiler/code_generator.cc -o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/code_generator.cc.o
+
+
+.gen-obj/third_party/protobuf/src/google/protobuf/compiler/command_line_interface.cc.o: .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/google/.dummy .gen-src/.gen-files/google/.dummy .gen-src/.gen-pkg/google/.dummy $(headers.third_party/protobuf/proto_lib) $(headers.third_party/protobuf/protoc_lib) third_party/protobuf/src/google/protobuf/compiler/command_line_interface.cc .gen-files/.dummy.prereqs
+	@mkdir -p .gen-obj/third_party/protobuf/src/google/protobuf/compiler
+	@echo "Compiling:  third_party/protobuf/src/google/protobuf/compiler/command_line_interface.cc (c++)"
+	@$(COMPILE.cc) -I -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files third_party/protobuf/src/google/protobuf/compiler/command_line_interface.cc -o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/command_line_interface.cc.o
+
+
+.gen-obj/third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_enum.cc.o: .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/google/.dummy .gen-src/.gen-files/google/.dummy .gen-src/.gen-pkg/google/.dummy $(headers.third_party/protobuf/proto_lib) $(headers.third_party/protobuf/protoc_lib) third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_enum.cc .gen-files/.dummy.prereqs
+	@mkdir -p .gen-obj/third_party/protobuf/src/google/protobuf/compiler/cpp
+	@echo "Compiling:  third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_enum.cc (c++)"
+	@$(COMPILE.cc) -I -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_enum.cc -o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_enum.cc.o
+
+
+.gen-obj/third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_enum_field.cc.o: .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/google/.dummy .gen-src/.gen-files/google/.dummy .gen-src/.gen-pkg/google/.dummy $(headers.third_party/protobuf/proto_lib) $(headers.third_party/protobuf/protoc_lib) third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_enum_field.cc .gen-files/.dummy.prereqs
+	@mkdir -p .gen-obj/third_party/protobuf/src/google/protobuf/compiler/cpp
+	@echo "Compiling:  third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_enum_field.cc (c++)"
+	@$(COMPILE.cc) -I -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_enum_field.cc -o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_enum_field.cc.o
+
+
+.gen-obj/third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_extension.cc.o: .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/google/.dummy .gen-src/.gen-files/google/.dummy .gen-src/.gen-pkg/google/.dummy $(headers.third_party/protobuf/proto_lib) $(headers.third_party/protobuf/protoc_lib) third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_extension.cc .gen-files/.dummy.prereqs
+	@mkdir -p .gen-obj/third_party/protobuf/src/google/protobuf/compiler/cpp
+	@echo "Compiling:  third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_extension.cc (c++)"
+	@$(COMPILE.cc) -I -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_extension.cc -o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_extension.cc.o
+
+
+.gen-obj/third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_field.cc.o: .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/google/.dummy .gen-src/.gen-files/google/.dummy .gen-src/.gen-pkg/google/.dummy $(headers.third_party/protobuf/proto_lib) $(headers.third_party/protobuf/protoc_lib) third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_field.cc .gen-files/.dummy.prereqs
+	@mkdir -p .gen-obj/third_party/protobuf/src/google/protobuf/compiler/cpp
+	@echo "Compiling:  third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_field.cc (c++)"
+	@$(COMPILE.cc) -I -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_field.cc -o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_field.cc.o
+
+
+.gen-obj/third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_file.cc.o: .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/google/.dummy .gen-src/.gen-files/google/.dummy .gen-src/.gen-pkg/google/.dummy $(headers.third_party/protobuf/proto_lib) $(headers.third_party/protobuf/protoc_lib) third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_file.cc .gen-files/.dummy.prereqs
+	@mkdir -p .gen-obj/third_party/protobuf/src/google/protobuf/compiler/cpp
+	@echo "Compiling:  third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_file.cc (c++)"
+	@$(COMPILE.cc) -I -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_file.cc -o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_file.cc.o
+
+
+.gen-obj/third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_generator.cc.o: .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/google/.dummy .gen-src/.gen-files/google/.dummy .gen-src/.gen-pkg/google/.dummy $(headers.third_party/protobuf/proto_lib) $(headers.third_party/protobuf/protoc_lib) third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_generator.cc .gen-files/.dummy.prereqs
+	@mkdir -p .gen-obj/third_party/protobuf/src/google/protobuf/compiler/cpp
+	@echo "Compiling:  third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_generator.cc (c++)"
+	@$(COMPILE.cc) -I -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_generator.cc -o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_generator.cc.o
+
+
+.gen-obj/third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_helpers.cc.o: .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/google/.dummy .gen-src/.gen-files/google/.dummy .gen-src/.gen-pkg/google/.dummy $(headers.third_party/protobuf/proto_lib) $(headers.third_party/protobuf/protoc_lib) third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_helpers.cc .gen-files/.dummy.prereqs
+	@mkdir -p .gen-obj/third_party/protobuf/src/google/protobuf/compiler/cpp
+	@echo "Compiling:  third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_helpers.cc (c++)"
+	@$(COMPILE.cc) -I -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_helpers.cc -o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_helpers.cc.o
+
+
+.gen-obj/third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_message.cc.o: .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/google/.dummy .gen-src/.gen-files/google/.dummy .gen-src/.gen-pkg/google/.dummy $(headers.third_party/protobuf/proto_lib) $(headers.third_party/protobuf/protoc_lib) third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_message.cc .gen-files/.dummy.prereqs
+	@mkdir -p .gen-obj/third_party/protobuf/src/google/protobuf/compiler/cpp
+	@echo "Compiling:  third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_message.cc (c++)"
+	@$(COMPILE.cc) -I -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_message.cc -o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_message.cc.o
+
+
+.gen-obj/third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_message_field.cc.o: .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/google/.dummy .gen-src/.gen-files/google/.dummy .gen-src/.gen-pkg/google/.dummy $(headers.third_party/protobuf/proto_lib) $(headers.third_party/protobuf/protoc_lib) third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_message_field.cc .gen-files/.dummy.prereqs
+	@mkdir -p .gen-obj/third_party/protobuf/src/google/protobuf/compiler/cpp
+	@echo "Compiling:  third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_message_field.cc (c++)"
+	@$(COMPILE.cc) -I -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_message_field.cc -o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_message_field.cc.o
+
+
+.gen-obj/third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_primitive_field.cc.o: .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/google/.dummy .gen-src/.gen-files/google/.dummy .gen-src/.gen-pkg/google/.dummy $(headers.third_party/protobuf/proto_lib) $(headers.third_party/protobuf/protoc_lib) third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_primitive_field.cc .gen-files/.dummy.prereqs
+	@mkdir -p .gen-obj/third_party/protobuf/src/google/protobuf/compiler/cpp
+	@echo "Compiling:  third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_primitive_field.cc (c++)"
+	@$(COMPILE.cc) -I -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_primitive_field.cc -o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_primitive_field.cc.o
+
+
+.gen-obj/third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_service.cc.o: .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/google/.dummy .gen-src/.gen-files/google/.dummy .gen-src/.gen-pkg/google/.dummy $(headers.third_party/protobuf/proto_lib) $(headers.third_party/protobuf/protoc_lib) third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_service.cc .gen-files/.dummy.prereqs
+	@mkdir -p .gen-obj/third_party/protobuf/src/google/protobuf/compiler/cpp
+	@echo "Compiling:  third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_service.cc (c++)"
+	@$(COMPILE.cc) -I -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_service.cc -o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_service.cc.o
+
+
+.gen-obj/third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_string_field.cc.o: .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/google/.dummy .gen-src/.gen-files/google/.dummy .gen-src/.gen-pkg/google/.dummy $(headers.third_party/protobuf/proto_lib) $(headers.third_party/protobuf/protoc_lib) third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_string_field.cc .gen-files/.dummy.prereqs
+	@mkdir -p .gen-obj/third_party/protobuf/src/google/protobuf/compiler/cpp
+	@echo "Compiling:  third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_string_field.cc (c++)"
+	@$(COMPILE.cc) -I -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_string_field.cc -o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_string_field.cc.o
+
+
+.gen-obj/third_party/protobuf/src/google/protobuf/compiler/importer.cc.o: .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/google/.dummy .gen-src/.gen-files/google/.dummy .gen-src/.gen-pkg/google/.dummy $(headers.third_party/protobuf/proto_lib) $(headers.third_party/protobuf/protoc_lib) third_party/protobuf/src/google/protobuf/compiler/importer.cc .gen-files/.dummy.prereqs
+	@mkdir -p .gen-obj/third_party/protobuf/src/google/protobuf/compiler
+	@echo "Compiling:  third_party/protobuf/src/google/protobuf/compiler/importer.cc (c++)"
+	@$(COMPILE.cc) -I -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files third_party/protobuf/src/google/protobuf/compiler/importer.cc -o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/importer.cc.o
+
+
+.gen-obj/third_party/protobuf/src/google/protobuf/compiler/java/java_doc_comment.cc.o: .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/google/.dummy .gen-src/.gen-files/google/.dummy .gen-src/.gen-pkg/google/.dummy $(headers.third_party/protobuf/proto_lib) $(headers.third_party/protobuf/protoc_lib) third_party/protobuf/src/google/protobuf/compiler/java/java_doc_comment.cc .gen-files/.dummy.prereqs
+	@mkdir -p .gen-obj/third_party/protobuf/src/google/protobuf/compiler/java
+	@echo "Compiling:  third_party/protobuf/src/google/protobuf/compiler/java/java_doc_comment.cc (c++)"
+	@$(COMPILE.cc) -I -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files third_party/protobuf/src/google/protobuf/compiler/java/java_doc_comment.cc -o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/java/java_doc_comment.cc.o
+
+
+.gen-obj/third_party/protobuf/src/google/protobuf/compiler/java/java_enum.cc.o: .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/google/.dummy .gen-src/.gen-files/google/.dummy .gen-src/.gen-pkg/google/.dummy $(headers.third_party/protobuf/proto_lib) $(headers.third_party/protobuf/protoc_lib) third_party/protobuf/src/google/protobuf/compiler/java/java_enum.cc .gen-files/.dummy.prereqs
+	@mkdir -p .gen-obj/third_party/protobuf/src/google/protobuf/compiler/java
+	@echo "Compiling:  third_party/protobuf/src/google/protobuf/compiler/java/java_enum.cc (c++)"
+	@$(COMPILE.cc) -I -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files third_party/protobuf/src/google/protobuf/compiler/java/java_enum.cc -o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/java/java_enum.cc.o
+
+
+.gen-obj/third_party/protobuf/src/google/protobuf/compiler/java/java_enum_field.cc.o: .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/google/.dummy .gen-src/.gen-files/google/.dummy .gen-src/.gen-pkg/google/.dummy $(headers.third_party/protobuf/proto_lib) $(headers.third_party/protobuf/protoc_lib) third_party/protobuf/src/google/protobuf/compiler/java/java_enum_field.cc .gen-files/.dummy.prereqs
+	@mkdir -p .gen-obj/third_party/protobuf/src/google/protobuf/compiler/java
+	@echo "Compiling:  third_party/protobuf/src/google/protobuf/compiler/java/java_enum_field.cc (c++)"
+	@$(COMPILE.cc) -I -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files third_party/protobuf/src/google/protobuf/compiler/java/java_enum_field.cc -o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/java/java_enum_field.cc.o
+
+
+.gen-obj/third_party/protobuf/src/google/protobuf/compiler/java/java_extension.cc.o: .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/google/.dummy .gen-src/.gen-files/google/.dummy .gen-src/.gen-pkg/google/.dummy $(headers.third_party/protobuf/proto_lib) $(headers.third_party/protobuf/protoc_lib) third_party/protobuf/src/google/protobuf/compiler/java/java_extension.cc .gen-files/.dummy.prereqs
+	@mkdir -p .gen-obj/third_party/protobuf/src/google/protobuf/compiler/java
+	@echo "Compiling:  third_party/protobuf/src/google/protobuf/compiler/java/java_extension.cc (c++)"
+	@$(COMPILE.cc) -I -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files third_party/protobuf/src/google/protobuf/compiler/java/java_extension.cc -o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/java/java_extension.cc.o
+
+
+.gen-obj/third_party/protobuf/src/google/protobuf/compiler/java/java_field.cc.o: .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/google/.dummy .gen-src/.gen-files/google/.dummy .gen-src/.gen-pkg/google/.dummy $(headers.third_party/protobuf/proto_lib) $(headers.third_party/protobuf/protoc_lib) third_party/protobuf/src/google/protobuf/compiler/java/java_field.cc .gen-files/.dummy.prereqs
+	@mkdir -p .gen-obj/third_party/protobuf/src/google/protobuf/compiler/java
+	@echo "Compiling:  third_party/protobuf/src/google/protobuf/compiler/java/java_field.cc (c++)"
+	@$(COMPILE.cc) -I -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files third_party/protobuf/src/google/protobuf/compiler/java/java_field.cc -o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/java/java_field.cc.o
+
+
+.gen-obj/third_party/protobuf/src/google/protobuf/compiler/java/java_file.cc.o: .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/google/.dummy .gen-src/.gen-files/google/.dummy .gen-src/.gen-pkg/google/.dummy $(headers.third_party/protobuf/proto_lib) $(headers.third_party/protobuf/protoc_lib) third_party/protobuf/src/google/protobuf/compiler/java/java_file.cc .gen-files/.dummy.prereqs
+	@mkdir -p .gen-obj/third_party/protobuf/src/google/protobuf/compiler/java
+	@echo "Compiling:  third_party/protobuf/src/google/protobuf/compiler/java/java_file.cc (c++)"
+	@$(COMPILE.cc) -I -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files third_party/protobuf/src/google/protobuf/compiler/java/java_file.cc -o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/java/java_file.cc.o
+
+
+.gen-obj/third_party/protobuf/src/google/protobuf/compiler/java/java_generator.cc.o: .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/google/.dummy .gen-src/.gen-files/google/.dummy .gen-src/.gen-pkg/google/.dummy $(headers.third_party/protobuf/proto_lib) $(headers.third_party/protobuf/protoc_lib) third_party/protobuf/src/google/protobuf/compiler/java/java_generator.cc .gen-files/.dummy.prereqs
+	@mkdir -p .gen-obj/third_party/protobuf/src/google/protobuf/compiler/java
+	@echo "Compiling:  third_party/protobuf/src/google/protobuf/compiler/java/java_generator.cc (c++)"
+	@$(COMPILE.cc) -I -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files third_party/protobuf/src/google/protobuf/compiler/java/java_generator.cc -o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/java/java_generator.cc.o
+
+
+.gen-obj/third_party/protobuf/src/google/protobuf/compiler/java/java_helpers.cc.o: .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/google/.dummy .gen-src/.gen-files/google/.dummy .gen-src/.gen-pkg/google/.dummy $(headers.third_party/protobuf/proto_lib) $(headers.third_party/protobuf/protoc_lib) third_party/protobuf/src/google/protobuf/compiler/java/java_helpers.cc .gen-files/.dummy.prereqs
+	@mkdir -p .gen-obj/third_party/protobuf/src/google/protobuf/compiler/java
+	@echo "Compiling:  third_party/protobuf/src/google/protobuf/compiler/java/java_helpers.cc (c++)"
+	@$(COMPILE.cc) -I -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files third_party/protobuf/src/google/protobuf/compiler/java/java_helpers.cc -o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/java/java_helpers.cc.o
+
+
+.gen-obj/third_party/protobuf/src/google/protobuf/compiler/java/java_message.cc.o: .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/google/.dummy .gen-src/.gen-files/google/.dummy .gen-src/.gen-pkg/google/.dummy $(headers.third_party/protobuf/proto_lib) $(headers.third_party/protobuf/protoc_lib) third_party/protobuf/src/google/protobuf/compiler/java/java_message.cc .gen-files/.dummy.prereqs
+	@mkdir -p .gen-obj/third_party/protobuf/src/google/protobuf/compiler/java
+	@echo "Compiling:  third_party/protobuf/src/google/protobuf/compiler/java/java_message.cc (c++)"
+	@$(COMPILE.cc) -I -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files third_party/protobuf/src/google/protobuf/compiler/java/java_message.cc -o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/java/java_message.cc.o
+
+
+.gen-obj/third_party/protobuf/src/google/protobuf/compiler/java/java_message_field.cc.o: .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/google/.dummy .gen-src/.gen-files/google/.dummy .gen-src/.gen-pkg/google/.dummy $(headers.third_party/protobuf/proto_lib) $(headers.third_party/protobuf/protoc_lib) third_party/protobuf/src/google/protobuf/compiler/java/java_message_field.cc .gen-files/.dummy.prereqs
+	@mkdir -p .gen-obj/third_party/protobuf/src/google/protobuf/compiler/java
+	@echo "Compiling:  third_party/protobuf/src/google/protobuf/compiler/java/java_message_field.cc (c++)"
+	@$(COMPILE.cc) -I -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files third_party/protobuf/src/google/protobuf/compiler/java/java_message_field.cc -o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/java/java_message_field.cc.o
+
+
+.gen-obj/third_party/protobuf/src/google/protobuf/compiler/java/java_primitive_field.cc.o: .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/google/.dummy .gen-src/.gen-files/google/.dummy .gen-src/.gen-pkg/google/.dummy $(headers.third_party/protobuf/proto_lib) $(headers.third_party/protobuf/protoc_lib) third_party/protobuf/src/google/protobuf/compiler/java/java_primitive_field.cc .gen-files/.dummy.prereqs
+	@mkdir -p .gen-obj/third_party/protobuf/src/google/protobuf/compiler/java
+	@echo "Compiling:  third_party/protobuf/src/google/protobuf/compiler/java/java_primitive_field.cc (c++)"
+	@$(COMPILE.cc) -I -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files third_party/protobuf/src/google/protobuf/compiler/java/java_primitive_field.cc -o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/java/java_primitive_field.cc.o
+
+
+.gen-obj/third_party/protobuf/src/google/protobuf/compiler/java/java_service.cc.o: .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/google/.dummy .gen-src/.gen-files/google/.dummy .gen-src/.gen-pkg/google/.dummy $(headers.third_party/protobuf/proto_lib) $(headers.third_party/protobuf/protoc_lib) third_party/protobuf/src/google/protobuf/compiler/java/java_service.cc .gen-files/.dummy.prereqs
+	@mkdir -p .gen-obj/third_party/protobuf/src/google/protobuf/compiler/java
+	@echo "Compiling:  third_party/protobuf/src/google/protobuf/compiler/java/java_service.cc (c++)"
+	@$(COMPILE.cc) -I -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files third_party/protobuf/src/google/protobuf/compiler/java/java_service.cc -o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/java/java_service.cc.o
+
+
+.gen-obj/third_party/protobuf/src/google/protobuf/compiler/java/java_string_field.cc.o: .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/google/.dummy .gen-src/.gen-files/google/.dummy .gen-src/.gen-pkg/google/.dummy $(headers.third_party/protobuf/proto_lib) $(headers.third_party/protobuf/protoc_lib) third_party/protobuf/src/google/protobuf/compiler/java/java_string_field.cc .gen-files/.dummy.prereqs
+	@mkdir -p .gen-obj/third_party/protobuf/src/google/protobuf/compiler/java
+	@echo "Compiling:  third_party/protobuf/src/google/protobuf/compiler/java/java_string_field.cc (c++)"
+	@$(COMPILE.cc) -I -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files third_party/protobuf/src/google/protobuf/compiler/java/java_string_field.cc -o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/java/java_string_field.cc.o
+
+
+.gen-obj/third_party/protobuf/src/google/protobuf/compiler/parser.cc.o: .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/google/.dummy .gen-src/.gen-files/google/.dummy .gen-src/.gen-pkg/google/.dummy $(headers.third_party/protobuf/proto_lib) $(headers.third_party/protobuf/protoc_lib) third_party/protobuf/src/google/protobuf/compiler/parser.cc .gen-files/.dummy.prereqs
+	@mkdir -p .gen-obj/third_party/protobuf/src/google/protobuf/compiler
+	@echo "Compiling:  third_party/protobuf/src/google/protobuf/compiler/parser.cc (c++)"
+	@$(COMPILE.cc) -I -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files third_party/protobuf/src/google/protobuf/compiler/parser.cc -o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/parser.cc.o
+
+
+.gen-obj/third_party/protobuf/src/google/protobuf/compiler/plugin.cc.o: .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/google/.dummy .gen-src/.gen-files/google/.dummy .gen-src/.gen-pkg/google/.dummy $(headers.third_party/protobuf/proto_lib) $(headers.third_party/protobuf/protoc_lib) third_party/protobuf/src/google/protobuf/compiler/plugin.cc .gen-files/.dummy.prereqs
+	@mkdir -p .gen-obj/third_party/protobuf/src/google/protobuf/compiler
+	@echo "Compiling:  third_party/protobuf/src/google/protobuf/compiler/plugin.cc (c++)"
+	@$(COMPILE.cc) -I -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files third_party/protobuf/src/google/protobuf/compiler/plugin.cc -o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/plugin.cc.o
+
+
+.gen-obj/third_party/protobuf/src/google/protobuf/compiler/plugin.pb.cc.o: .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/google/.dummy .gen-src/.gen-files/google/.dummy .gen-src/.gen-pkg/google/.dummy $(headers.third_party/protobuf/proto_lib) $(headers.third_party/protobuf/protoc_lib) third_party/protobuf/src/google/protobuf/compiler/plugin.pb.cc .gen-files/.dummy.prereqs
+	@mkdir -p .gen-obj/third_party/protobuf/src/google/protobuf/compiler
+	@echo "Compiling:  third_party/protobuf/src/google/protobuf/compiler/plugin.pb.cc (c++)"
+	@$(COMPILE.cc) -I -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files third_party/protobuf/src/google/protobuf/compiler/plugin.pb.cc -o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/plugin.pb.cc.o
+
+
+.gen-obj/third_party/protobuf/src/google/protobuf/compiler/python/python_generator.cc.o: .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/google/.dummy .gen-src/.gen-files/google/.dummy .gen-src/.gen-pkg/google/.dummy $(headers.third_party/protobuf/proto_lib) $(headers.third_party/protobuf/protoc_lib) third_party/protobuf/src/google/protobuf/compiler/python/python_generator.cc .gen-files/.dummy.prereqs
+	@mkdir -p .gen-obj/third_party/protobuf/src/google/protobuf/compiler/python
+	@echo "Compiling:  third_party/protobuf/src/google/protobuf/compiler/python/python_generator.cc (c++)"
+	@$(COMPILE.cc) -I -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files third_party/protobuf/src/google/protobuf/compiler/python/python_generator.cc -o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/python/python_generator.cc.o
+
+
+.gen-obj/third_party/protobuf/src/google/protobuf/compiler/subprocess.cc.o: .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/google/.dummy .gen-src/.gen-files/google/.dummy .gen-src/.gen-pkg/google/.dummy $(headers.third_party/protobuf/proto_lib) $(headers.third_party/protobuf/protoc_lib) third_party/protobuf/src/google/protobuf/compiler/subprocess.cc .gen-files/.dummy.prereqs
+	@mkdir -p .gen-obj/third_party/protobuf/src/google/protobuf/compiler
+	@echo "Compiling:  third_party/protobuf/src/google/protobuf/compiler/subprocess.cc (c++)"
+	@$(COMPILE.cc) -I -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files third_party/protobuf/src/google/protobuf/compiler/subprocess.cc -o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/subprocess.cc.o
+
+
+.gen-obj/third_party/protobuf/src/google/protobuf/compiler/zip_writer.cc.o: .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/google/.dummy .gen-src/.gen-files/google/.dummy .gen-src/.gen-pkg/google/.dummy $(headers.third_party/protobuf/proto_lib) $(headers.third_party/protobuf/protoc_lib) third_party/protobuf/src/google/protobuf/compiler/zip_writer.cc .gen-files/.dummy.prereqs
+	@mkdir -p .gen-obj/third_party/protobuf/src/google/protobuf/compiler
+	@echo "Compiling:  third_party/protobuf/src/google/protobuf/compiler/zip_writer.cc (c++)"
+	@$(COMPILE.cc) -I -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files third_party/protobuf/src/google/protobuf/compiler/zip_writer.cc -o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/zip_writer.cc.o
+
+third_party/protobuf/protoc_lib: .gen-obj/third_party/protobuf/src/google/protobuf/compiler/code_generator.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/command_line_interface.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_enum.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_enum_field.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_extension.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_field.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_file.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_generator.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_helpers.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_message.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_message_field.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_primitive_field.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_service.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_string_field.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/importer.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/java/java_doc_comment.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/java/java_enum.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/java/java_enum_field.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/java/java_extension.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/java/java_field.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/java/java_file.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/java/java_generator.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/java/java_helpers.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/java/java_message.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/java/java_message_field.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/java/java_primitive_field.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/java/java_service.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/java/java_string_field.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/parser.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/plugin.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/plugin.pb.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/python/python_generator.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/subprocess.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/zip_writer.cc.o third_party/protobuf/proto_lib third_party/protobuf/auto_.0 third_party/auto_.0
+
+.PHONY: third_party/protobuf/protoc_lib
+
+
+protoc: .gen-obj/third_party/protobuf/protoc .gen-files/.dummy.prereqs
+	@ln -f -s .gen-obj/third_party/protobuf/protoc protoc
+
+
+bin/protoc: .gen-obj/third_party/protobuf/protoc .gen-files/.dummy.prereqs
+	@mkdir -p bin
+	@ln -f -s ../.gen-obj/third_party/protobuf/protoc bin/protoc
+
+third_party/protobuf/protoc.0: third_party/protobuf/auto_.0 third_party/auto_.0
+
+.PHONY: third_party/protobuf/protoc.0
+
+
+.gen-obj/third_party/protobuf/src/google/protobuf/compiler/main.cc.o: .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/google/.dummy .gen-src/.gen-files/google/.dummy .gen-src/.gen-pkg/google/.dummy $(headers.third_party/protobuf/proto_lib) $(headers.third_party/protobuf/protoc_lib) third_party/protobuf/src/google/protobuf/compiler/main.cc .gen-files/.dummy.prereqs
+	@mkdir -p .gen-obj/third_party/protobuf/src/google/protobuf/compiler
+	@echo "Compiling:  third_party/protobuf/src/google/protobuf/compiler/main.cc (c++)"
+	@$(COMPILE.cc) -I -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files third_party/protobuf/src/google/protobuf/compiler/main.cc -o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/main.cc.o
+
+
+.gen-obj/third_party/protobuf/protoc: .gen-obj/third_party/protobuf/src/google/protobuf/descriptor.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/descriptor.pb.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/descriptor_database.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/dynamic_message.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/extension_set.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/extension_set_heavy.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/generated_message_reflection.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/generated_message_util.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/io/coded_stream.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/io/gzip_stream.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/io/printer.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/io/tokenizer.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/io/zero_copy_stream.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/io/zero_copy_stream_impl.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/io/zero_copy_stream_impl_lite.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/message.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/message_lite.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/reflection_ops.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/repeated_field.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/service.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/stubs/atomicops_internals_x86_gcc.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/stubs/atomicops_internals_x86_msvc.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/stubs/common.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/stubs/once.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/stubs/stringprintf.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/stubs/structurally_valid.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/stubs/strutil.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/stubs/substitute.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/text_format.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/unknown_field_set.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/wire_format.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/wire_format_lite.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/code_generator.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/command_line_interface.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_enum.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_enum_field.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_extension.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_field.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_file.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_generator.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_helpers.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_message.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_message_field.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_primitive_field.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_service.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_string_field.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/importer.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/java/java_doc_comment.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/java/java_enum.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/java/java_enum_field.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/java/java_extension.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/java/java_field.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/java/java_file.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/java/java_generator.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/java/java_helpers.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/java/java_message.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/java/java_message_field.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/java/java_primitive_field.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/java/java_service.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/java/java_string_field.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/parser.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/plugin.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/plugin.pb.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/python/python_generator.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/subprocess.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/zip_writer.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/main.cc.o .gen-files/.dummy.prereqs
+	@echo "Linking:    .gen-obj/third_party/protobuf/protoc"
+	@mkdir -p .gen-obj/third_party/protobuf
+	@$(LINK.cc)  .gen-obj/third_party/protobuf/src/google/protobuf/compiler/main.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/zip_writer.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/subprocess.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/python/python_generator.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/plugin.pb.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/plugin.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/parser.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/java/java_string_field.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/java/java_service.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/java/java_primitive_field.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/java/java_message_field.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/java/java_message.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/java/java_helpers.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/java/java_generator.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/java/java_file.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/java/java_field.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/java/java_extension.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/java/java_enum_field.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/java/java_enum.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/java/java_doc_comment.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/importer.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_string_field.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_service.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_primitive_field.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_message_field.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_message.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_helpers.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_generator.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_file.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_field.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_extension.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_enum_field.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_enum.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/command_line_interface.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/compiler/code_generator.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/wire_format_lite.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/wire_format.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/unknown_field_set.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/text_format.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/stubs/substitute.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/stubs/strutil.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/stubs/structurally_valid.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/stubs/stringprintf.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/stubs/once.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/stubs/common.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/stubs/atomicops_internals_x86_msvc.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/stubs/atomicops_internals_x86_gcc.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/service.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/repeated_field.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/reflection_ops.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/message_lite.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/message.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/io/zero_copy_stream_impl_lite.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/io/zero_copy_stream_impl.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/io/zero_copy_stream.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/io/tokenizer.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/io/printer.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/io/gzip_stream.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/io/coded_stream.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/generated_message_util.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/generated_message_reflection.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/extension_set_heavy.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/extension_set.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/dynamic_message.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/descriptor_database.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/descriptor.pb.cc.o .gen-obj/third_party/protobuf/src/google/protobuf/descriptor.cc.o -o .gen-obj/third_party/protobuf/protoc $(cc_linker_args.third_party/protobuf/proto_lib)
+
+third_party/protobuf/protoc: third_party/protobuf/protoc_lib third_party/protobuf/proto_lib third_party/protobuf/protoc.0 third_party/protobuf/auto_.0 third_party/auto_.0
+
+.PHONY: third_party/protobuf/protoc
+
+
+.gen-obj/third_party/protobuf/.generate_java_descriptor_proto.dummy: .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/google/.dummy .gen-src/.gen-files/google/.dummy .gen-src/.gen-pkg/google/.dummy $(headers.third_party/protobuf/proto_lib) $(headers.third_party/protobuf/protoc_lib) .gen-obj/third_party/protobuf/protoc .gen-files/.dummy.prereqs
+	@echo "Script:     //third_party/protobuf:generate_java_descriptor_proto"
+	@(mkdir -p .gen-files/third_party/protobuf; cd third_party/protobuf; GEN_DIR="$(ROOT_DIR)/.gen-files/third_party/protobuf"; OBJ_DIR="$(ROOT_DIR)/.gen-obj/third_party/protobuf"; SRC_DIR="$(ROOT_DIR)/.gen-src/third_party/protobuf" ROOT_DIR="$(ROOT_DIR)"  CXX_GCC="$(CXX_GCC)" CC_GCC="$(CC_GCC)" CC="$(CC)" CXX="$(CXX)" CXXFLAGS="$(CXXFLAGS)" BASIC_CXXFLAGS="$(BASIC_CXXFLAGS)" CFLAGS="$(CFLAGS)" BASIC_CFLAGS="$(BASIC_CFLAGS)" LDFLAGS="$(LDFLAGS)" MAKE="$(MAKE)" DEP_CXXFLAGS="" DEP_CFLAGS="" eval '(mkdir -p $$ROOT_DIR/.gen-files/third_party/protobuf/java/src/main/java; $$ROOT_DIR/.gen-obj/third_party/protobuf/protoc --java_out=$$ROOT_DIR/.gen-files/third_party/protobuf/java/src/main/java -Isrc src/google/protobuf/descriptor.proto)' > $(ROOT_DIR)/.gen-files/third_party/protobuf.generate_java_descriptor_proto.logfile 2>&1 || (cat $(ROOT_DIR)/.gen-files/third_party/protobuf.generate_java_descriptor_proto.logfile; exit 1) ) && (mkdir -p .gen-obj/third_party/protobuf; touch .gen-obj/third_party/protobuf/.generate_java_descriptor_proto.dummy)
+
+third_party/protobuf/generate_java_descriptor_proto: .gen-obj/third_party/protobuf/.generate_java_descriptor_proto.dummy third_party/protobuf/protoc third_party/protobuf/auto_.0 third_party/auto_.0
+
+.PHONY: third_party/protobuf/generate_java_descriptor_proto
+
+
+.gen-files/third_party/protobuf/src/main/java/com/google/protobuf/DescriptorProtos.java: .gen-obj/third_party/protobuf/.generate_java_descriptor_proto.dummy .gen-files/.dummy.prereqs
+
+
+.gen-obj/third_party/protobuf/.java_protocompile.dummy: .gen-obj/third_party/protobuf/.generate_java_descriptor_proto.dummy .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/google/.dummy .gen-src/.gen-files/google/.dummy .gen-src/.gen-pkg/google/.dummy third_party/protobuf/java/src/main/java/com/google/protobuf/AbstractMessage.java third_party/protobuf/java/src/main/java/com/google/protobuf/AbstractMessageLite.java third_party/protobuf/java/src/main/java/com/google/protobuf/AbstractParser.java third_party/protobuf/java/src/main/java/com/google/protobuf/BlockingRpcChannel.java third_party/protobuf/java/src/main/java/com/google/protobuf/BlockingService.java third_party/protobuf/java/src/main/java/com/google/protobuf/BoundedByteString.java third_party/protobuf/java/src/main/java/com/google/protobuf/ByteString.java third_party/protobuf/java/src/main/java/com/google/protobuf/CodedInputStream.java third_party/protobuf/java/src/main/java/com/google/protobuf/CodedOutputStream.java third_party/protobuf/java/src/main/java/com/google/protobuf/Descriptors.java third_party/protobuf/java/src/main/java/com/google/protobuf/DynamicMessage.java third_party/protobuf/java/src/main/java/com/google/protobuf/ExtensionRegistry.java third_party/protobuf/java/src/main/java/com/google/protobuf/ExtensionRegistryLite.java third_party/protobuf/java/src/main/java/com/google/protobuf/FieldSet.java third_party/protobuf/java/src/main/java/com/google/protobuf/GeneratedMessage.java third_party/protobuf/java/src/main/java/com/google/protobuf/GeneratedMessageLite.java third_party/protobuf/java/src/main/java/com/google/protobuf/Internal.java third_party/protobuf/java/src/main/java/com/google/protobuf/InvalidProtocolBufferException.java third_party/protobuf/java/src/main/java/com/google/protobuf/LazyField.java third_party/protobuf/java/src/main/java/com/google/protobuf/LazyStringArrayList.java third_party/protobuf/java/src/main/java/com/google/protobuf/LazyStringList.java third_party/protobuf/java/src/main/java/com/google/protobuf/LiteralByteString.java third_party/protobuf/java/src/main/java/com/google/protobuf/Message.java third_party/protobuf/java/src/main/java/com/google/protobuf/MessageLite.java third_party/protobuf/java/src/main/java/com/google/protobuf/MessageLiteOrBuilder.java third_party/protobuf/java/src/main/java/com/google/protobuf/MessageOrBuilder.java third_party/protobuf/java/src/main/java/com/google/protobuf/Parser.java third_party/protobuf/java/src/main/java/com/google/protobuf/ProtocolMessageEnum.java third_party/protobuf/java/src/main/java/com/google/protobuf/RepeatedFieldBuilder.java third_party/protobuf/java/src/main/java/com/google/protobuf/RopeByteString.java third_party/protobuf/java/src/main/java/com/google/protobuf/RpcCallback.java third_party/protobuf/java/src/main/java/com/google/protobuf/RpcChannel.java third_party/protobuf/java/src/main/java/com/google/protobuf/RpcController.java third_party/protobuf/java/src/main/java/com/google/protobuf/RpcUtil.java third_party/protobuf/java/src/main/java/com/google/protobuf/Service.java third_party/protobuf/java/src/main/java/com/google/protobuf/ServiceException.java third_party/protobuf/java/src/main/java/com/google/protobuf/SingleFieldBuilder.java third_party/protobuf/java/src/main/java/com/google/protobuf/SmallSortedMap.java third_party/protobuf/java/src/main/java/com/google/protobuf/TextFormat.java third_party/protobuf/java/src/main/java/com/google/protobuf/UninitializedMessageException.java third_party/protobuf/java/src/main/java/com/google/protobuf/UnknownFieldSet.java third_party/protobuf/java/src/main/java/com/google/protobuf/UnmodifiableLazyStringList.java third_party/protobuf/java/src/main/java/com/google/protobuf/Utf8.java third_party/protobuf/java/src/main/java/com/google/protobuf/WireFormat.java .gen-files/.dummy.prereqs
+	@mkdir -p .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf
+	@echo "Compiling:  third_party/protobuf/java_proto (java)"
+	@mkdir -p .gen-obj/lib_third_party/protobuf/java_proto
+	@javac -d .gen-obj/lib_third_party/protobuf/java_proto -s .gen-files -g -cp  .:.gen-files:.gen-src:.gen-src/.gen-files:.:.gen-files:.gen-files/third_party/protobuf/java/src/main/java:.gen-obj/lib_third_party/protobuf/java_proto:.gen-obj/third_party/protobuf/java/src/main/java:.gen-src:.gen-src/.gen-files:third_party/protobuf/java/src/main/java third_party/protobuf/java/src/main/java/com/google/protobuf/AbstractMessage.java third_party/protobuf/java/src/main/java/com/google/protobuf/AbstractMessageLite.java third_party/protobuf/java/src/main/java/com/google/protobuf/AbstractParser.java third_party/protobuf/java/src/main/java/com/google/protobuf/BlockingRpcChannel.java third_party/protobuf/java/src/main/java/com/google/protobuf/BlockingService.java third_party/protobuf/java/src/main/java/com/google/protobuf/BoundedByteString.java third_party/protobuf/java/src/main/java/com/google/protobuf/ByteString.java third_party/protobuf/java/src/main/java/com/google/protobuf/CodedInputStream.java third_party/protobuf/java/src/main/java/com/google/protobuf/CodedOutputStream.java third_party/protobuf/java/src/main/java/com/google/protobuf/Descriptors.java third_party/protobuf/java/src/main/java/com/google/protobuf/DynamicMessage.java third_party/protobuf/java/src/main/java/com/google/protobuf/ExtensionRegistry.java third_party/protobuf/java/src/main/java/com/google/protobuf/ExtensionRegistryLite.java third_party/protobuf/java/src/main/java/com/google/protobuf/FieldSet.java third_party/protobuf/java/src/main/java/com/google/protobuf/GeneratedMessage.java third_party/protobuf/java/src/main/java/com/google/protobuf/GeneratedMessageLite.java third_party/protobuf/java/src/main/java/com/google/protobuf/Internal.java third_party/protobuf/java/src/main/java/com/google/protobuf/InvalidProtocolBufferException.java third_party/protobuf/java/src/main/java/com/google/protobuf/LazyField.java third_party/protobuf/java/src/main/java/com/google/protobuf/LazyStringArrayList.java third_party/protobuf/java/src/main/java/com/google/protobuf/LazyStringList.java third_party/protobuf/java/src/main/java/com/google/protobuf/LiteralByteString.java third_party/protobuf/java/src/main/java/com/google/protobuf/Message.java third_party/protobuf/java/src/main/java/com/google/protobuf/MessageLite.java third_party/protobuf/java/src/main/java/com/google/protobuf/MessageLiteOrBuilder.java third_party/protobuf/java/src/main/java/com/google/protobuf/MessageOrBuilder.java third_party/protobuf/java/src/main/java/com/google/protobuf/Parser.java third_party/protobuf/java/src/main/java/com/google/protobuf/ProtocolMessageEnum.java third_party/protobuf/java/src/main/java/com/google/protobuf/RepeatedFieldBuilder.java third_party/protobuf/java/src/main/java/com/google/protobuf/RopeByteString.java third_party/protobuf/java/src/main/java/com/google/protobuf/RpcCallback.java third_party/protobuf/java/src/main/java/com/google/protobuf/RpcChannel.java third_party/protobuf/java/src/main/java/com/google/protobuf/RpcController.java third_party/protobuf/java/src/main/java/com/google/protobuf/RpcUtil.java third_party/protobuf/java/src/main/java/com/google/protobuf/Service.java third_party/protobuf/java/src/main/java/com/google/protobuf/ServiceException.java third_party/protobuf/java/src/main/java/com/google/protobuf/SingleFieldBuilder.java third_party/protobuf/java/src/main/java/com/google/protobuf/SmallSortedMap.java third_party/protobuf/java/src/main/java/com/google/protobuf/TextFormat.java third_party/protobuf/java/src/main/java/com/google/protobuf/UninitializedMessageException.java third_party/protobuf/java/src/main/java/com/google/protobuf/UnknownFieldSet.java third_party/protobuf/java/src/main/java/com/google/protobuf/UnmodifiableLazyStringList.java third_party/protobuf/java/src/main/java/com/google/protobuf/Utf8.java third_party/protobuf/java/src/main/java/com/google/protobuf/WireFormat.java
+	@mkdir -p .gen-obj/third_party/protobuf
+	@touch .gen-obj/third_party/protobuf/.java_protocompile.dummy
+
+
+.gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/AbstractMessage.class: .gen-obj/third_party/protobuf/.java_protocompile.dummy .gen-files/.dummy.prereqs
+	@if [ ! -f .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/AbstractMessage.class ]; then echo "Class file not generated: .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/AbstractMessage.class, or it was generated in an unexpected location. Make sure java_root is specified correctly or the package name for the object is: com.google.protobuf.AbstractMessage.class"; exit 1; fi
+	@touch .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/AbstractMessage.class
+
+
+.gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/AbstractMessageLite.class: .gen-obj/third_party/protobuf/.java_protocompile.dummy .gen-files/.dummy.prereqs
+	@if [ ! -f .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/AbstractMessageLite.class ]; then echo "Class file not generated: .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/AbstractMessageLite.class, or it was generated in an unexpected location. Make sure java_root is specified correctly or the package name for the object is: com.google.protobuf.AbstractMessageLite.class"; exit 1; fi
+	@touch .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/AbstractMessageLite.class
+
+
+.gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/AbstractParser.class: .gen-obj/third_party/protobuf/.java_protocompile.dummy .gen-files/.dummy.prereqs
+	@if [ ! -f .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/AbstractParser.class ]; then echo "Class file not generated: .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/AbstractParser.class, or it was generated in an unexpected location. Make sure java_root is specified correctly or the package name for the object is: com.google.protobuf.AbstractParser.class"; exit 1; fi
+	@touch .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/AbstractParser.class
+
+
+.gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/BlockingRpcChannel.class: .gen-obj/third_party/protobuf/.java_protocompile.dummy .gen-files/.dummy.prereqs
+	@if [ ! -f .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/BlockingRpcChannel.class ]; then echo "Class file not generated: .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/BlockingRpcChannel.class, or it was generated in an unexpected location. Make sure java_root is specified correctly or the package name for the object is: com.google.protobuf.BlockingRpcChannel.class"; exit 1; fi
+	@touch .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/BlockingRpcChannel.class
+
+
+.gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/BlockingService.class: .gen-obj/third_party/protobuf/.java_protocompile.dummy .gen-files/.dummy.prereqs
+	@if [ ! -f .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/BlockingService.class ]; then echo "Class file not generated: .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/BlockingService.class, or it was generated in an unexpected location. Make sure java_root is specified correctly or the package name for the object is: com.google.protobuf.BlockingService.class"; exit 1; fi
+	@touch .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/BlockingService.class
+
+
+.gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/BoundedByteString.class: .gen-obj/third_party/protobuf/.java_protocompile.dummy .gen-files/.dummy.prereqs
+	@if [ ! -f .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/BoundedByteString.class ]; then echo "Class file not generated: .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/BoundedByteString.class, or it was generated in an unexpected location. Make sure java_root is specified correctly or the package name for the object is: com.google.protobuf.BoundedByteString.class"; exit 1; fi
+	@touch .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/BoundedByteString.class
+
+
+.gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/ByteString.class: .gen-obj/third_party/protobuf/.java_protocompile.dummy .gen-files/.dummy.prereqs
+	@if [ ! -f .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/ByteString.class ]; then echo "Class file not generated: .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/ByteString.class, or it was generated in an unexpected location. Make sure java_root is specified correctly or the package name for the object is: com.google.protobuf.ByteString.class"; exit 1; fi
+	@touch .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/ByteString.class
+
+
+.gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/CodedInputStream.class: .gen-obj/third_party/protobuf/.java_protocompile.dummy .gen-files/.dummy.prereqs
+	@if [ ! -f .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/CodedInputStream.class ]; then echo "Class file not generated: .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/CodedInputStream.class, or it was generated in an unexpected location. Make sure java_root is specified correctly or the package name for the object is: com.google.protobuf.CodedInputStream.class"; exit 1; fi
+	@touch .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/CodedInputStream.class
+
+
+.gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/CodedOutputStream.class: .gen-obj/third_party/protobuf/.java_protocompile.dummy .gen-files/.dummy.prereqs
+	@if [ ! -f .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/CodedOutputStream.class ]; then echo "Class file not generated: .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/CodedOutputStream.class, or it was generated in an unexpected location. Make sure java_root is specified correctly or the package name for the object is: com.google.protobuf.CodedOutputStream.class"; exit 1; fi
+	@touch .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/CodedOutputStream.class
+
+
+.gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/Descriptors.class: .gen-obj/third_party/protobuf/.java_protocompile.dummy .gen-files/.dummy.prereqs
+	@if [ ! -f .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/Descriptors.class ]; then echo "Class file not generated: .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/Descriptors.class, or it was generated in an unexpected location. Make sure java_root is specified correctly or the package name for the object is: com.google.protobuf.Descriptors.class"; exit 1; fi
+	@touch .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/Descriptors.class
+
+
+.gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/DynamicMessage.class: .gen-obj/third_party/protobuf/.java_protocompile.dummy .gen-files/.dummy.prereqs
+	@if [ ! -f .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/DynamicMessage.class ]; then echo "Class file not generated: .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/DynamicMessage.class, or it was generated in an unexpected location. Make sure java_root is specified correctly or the package name for the object is: com.google.protobuf.DynamicMessage.class"; exit 1; fi
+	@touch .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/DynamicMessage.class
+
+
+.gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/ExtensionRegistry.class: .gen-obj/third_party/protobuf/.java_protocompile.dummy .gen-files/.dummy.prereqs
+	@if [ ! -f .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/ExtensionRegistry.class ]; then echo "Class file not generated: .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/ExtensionRegistry.class, or it was generated in an unexpected location. Make sure java_root is specified correctly or the package name for the object is: com.google.protobuf.ExtensionRegistry.class"; exit 1; fi
+	@touch .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/ExtensionRegistry.class
+
+
+.gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/ExtensionRegistryLite.class: .gen-obj/third_party/protobuf/.java_protocompile.dummy .gen-files/.dummy.prereqs
+	@if [ ! -f .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/ExtensionRegistryLite.class ]; then echo "Class file not generated: .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/ExtensionRegistryLite.class, or it was generated in an unexpected location. Make sure java_root is specified correctly or the package name for the object is: com.google.protobuf.ExtensionRegistryLite.class"; exit 1; fi
+	@touch .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/ExtensionRegistryLite.class
+
+
+.gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/FieldSet.class: .gen-obj/third_party/protobuf/.java_protocompile.dummy .gen-files/.dummy.prereqs
+	@if [ ! -f .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/FieldSet.class ]; then echo "Class file not generated: .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/FieldSet.class, or it was generated in an unexpected location. Make sure java_root is specified correctly or the package name for the object is: com.google.protobuf.FieldSet.class"; exit 1; fi
+	@touch .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/FieldSet.class
+
+
+.gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/GeneratedMessage.class: .gen-obj/third_party/protobuf/.java_protocompile.dummy .gen-files/.dummy.prereqs
+	@if [ ! -f .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/GeneratedMessage.class ]; then echo "Class file not generated: .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/GeneratedMessage.class, or it was generated in an unexpected location. Make sure java_root is specified correctly or the package name for the object is: com.google.protobuf.GeneratedMessage.class"; exit 1; fi
+	@touch .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/GeneratedMessage.class
+
+
+.gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/GeneratedMessageLite.class: .gen-obj/third_party/protobuf/.java_protocompile.dummy .gen-files/.dummy.prereqs
+	@if [ ! -f .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/GeneratedMessageLite.class ]; then echo "Class file not generated: .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/GeneratedMessageLite.class, or it was generated in an unexpected location. Make sure java_root is specified correctly or the package name for the object is: com.google.protobuf.GeneratedMessageLite.class"; exit 1; fi
+	@touch .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/GeneratedMessageLite.class
+
+
+.gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/Internal.class: .gen-obj/third_party/protobuf/.java_protocompile.dummy .gen-files/.dummy.prereqs
+	@if [ ! -f .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/Internal.class ]; then echo "Class file not generated: .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/Internal.class, or it was generated in an unexpected location. Make sure java_root is specified correctly or the package name for the object is: com.google.protobuf.Internal.class"; exit 1; fi
+	@touch .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/Internal.class
+
+
+.gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/InvalidProtocolBufferException.class: .gen-obj/third_party/protobuf/.java_protocompile.dummy .gen-files/.dummy.prereqs
+	@if [ ! -f .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/InvalidProtocolBufferException.class ]; then echo "Class file not generated: .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/InvalidProtocolBufferException.class, or it was generated in an unexpected location. Make sure java_root is specified correctly or the package name for the object is: com.google.protobuf.InvalidProtocolBufferException.class"; exit 1; fi
+	@touch .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/InvalidProtocolBufferException.class
+
+
+.gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/LazyField.class: .gen-obj/third_party/protobuf/.java_protocompile.dummy .gen-files/.dummy.prereqs
+	@if [ ! -f .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/LazyField.class ]; then echo "Class file not generated: .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/LazyField.class, or it was generated in an unexpected location. Make sure java_root is specified correctly or the package name for the object is: com.google.protobuf.LazyField.class"; exit 1; fi
+	@touch .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/LazyField.class
+
+
+.gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/LazyStringArrayList.class: .gen-obj/third_party/protobuf/.java_protocompile.dummy .gen-files/.dummy.prereqs
+	@if [ ! -f .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/LazyStringArrayList.class ]; then echo "Class file not generated: .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/LazyStringArrayList.class, or it was generated in an unexpected location. Make sure java_root is specified correctly or the package name for the object is: com.google.protobuf.LazyStringArrayList.class"; exit 1; fi
+	@touch .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/LazyStringArrayList.class
+
+
+.gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/LazyStringList.class: .gen-obj/third_party/protobuf/.java_protocompile.dummy .gen-files/.dummy.prereqs
+	@if [ ! -f .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/LazyStringList.class ]; then echo "Class file not generated: .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/LazyStringList.class, or it was generated in an unexpected location. Make sure java_root is specified correctly or the package name for the object is: com.google.protobuf.LazyStringList.class"; exit 1; fi
+	@touch .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/LazyStringList.class
+
+
+.gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/LiteralByteString.class: .gen-obj/third_party/protobuf/.java_protocompile.dummy .gen-files/.dummy.prereqs
+	@if [ ! -f .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/LiteralByteString.class ]; then echo "Class file not generated: .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/LiteralByteString.class, or it was generated in an unexpected location. Make sure java_root is specified correctly or the package name for the object is: com.google.protobuf.LiteralByteString.class"; exit 1; fi
+	@touch .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/LiteralByteString.class
+
+
+.gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/Message.class: .gen-obj/third_party/protobuf/.java_protocompile.dummy .gen-files/.dummy.prereqs
+	@if [ ! -f .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/Message.class ]; then echo "Class file not generated: .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/Message.class, or it was generated in an unexpected location. Make sure java_root is specified correctly or the package name for the object is: com.google.protobuf.Message.class"; exit 1; fi
+	@touch .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/Message.class
+
+
+.gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/MessageLite.class: .gen-obj/third_party/protobuf/.java_protocompile.dummy .gen-files/.dummy.prereqs
+	@if [ ! -f .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/MessageLite.class ]; then echo "Class file not generated: .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/MessageLite.class, or it was generated in an unexpected location. Make sure java_root is specified correctly or the package name for the object is: com.google.protobuf.MessageLite.class"; exit 1; fi
+	@touch .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/MessageLite.class
+
+
+.gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/MessageLiteOrBuilder.class: .gen-obj/third_party/protobuf/.java_protocompile.dummy .gen-files/.dummy.prereqs
+	@if [ ! -f .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/MessageLiteOrBuilder.class ]; then echo "Class file not generated: .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/MessageLiteOrBuilder.class, or it was generated in an unexpected location. Make sure java_root is specified correctly or the package name for the object is: com.google.protobuf.MessageLiteOrBuilder.class"; exit 1; fi
+	@touch .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/MessageLiteOrBuilder.class
+
+
+.gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/MessageOrBuilder.class: .gen-obj/third_party/protobuf/.java_protocompile.dummy .gen-files/.dummy.prereqs
+	@if [ ! -f .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/MessageOrBuilder.class ]; then echo "Class file not generated: .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/MessageOrBuilder.class, or it was generated in an unexpected location. Make sure java_root is specified correctly or the package name for the object is: com.google.protobuf.MessageOrBuilder.class"; exit 1; fi
+	@touch .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/MessageOrBuilder.class
+
+
+.gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/Parser.class: .gen-obj/third_party/protobuf/.java_protocompile.dummy .gen-files/.dummy.prereqs
+	@if [ ! -f .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/Parser.class ]; then echo "Class file not generated: .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/Parser.class, or it was generated in an unexpected location. Make sure java_root is specified correctly or the package name for the object is: com.google.protobuf.Parser.class"; exit 1; fi
+	@touch .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/Parser.class
+
+
+.gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/ProtocolMessageEnum.class: .gen-obj/third_party/protobuf/.java_protocompile.dummy .gen-files/.dummy.prereqs
+	@if [ ! -f .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/ProtocolMessageEnum.class ]; then echo "Class file not generated: .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/ProtocolMessageEnum.class, or it was generated in an unexpected location. Make sure java_root is specified correctly or the package name for the object is: com.google.protobuf.ProtocolMessageEnum.class"; exit 1; fi
+	@touch .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/ProtocolMessageEnum.class
+
+
+.gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/RepeatedFieldBuilder.class: .gen-obj/third_party/protobuf/.java_protocompile.dummy .gen-files/.dummy.prereqs
+	@if [ ! -f .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/RepeatedFieldBuilder.class ]; then echo "Class file not generated: .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/RepeatedFieldBuilder.class, or it was generated in an unexpected location. Make sure java_root is specified correctly or the package name for the object is: com.google.protobuf.RepeatedFieldBuilder.class"; exit 1; fi
+	@touch .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/RepeatedFieldBuilder.class
+
+
+.gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/RopeByteString.class: .gen-obj/third_party/protobuf/.java_protocompile.dummy .gen-files/.dummy.prereqs
+	@if [ ! -f .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/RopeByteString.class ]; then echo "Class file not generated: .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/RopeByteString.class, or it was generated in an unexpected location. Make sure java_root is specified correctly or the package name for the object is: com.google.protobuf.RopeByteString.class"; exit 1; fi
+	@touch .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/RopeByteString.class
+
+
+.gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/RpcCallback.class: .gen-obj/third_party/protobuf/.java_protocompile.dummy .gen-files/.dummy.prereqs
+	@if [ ! -f .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/RpcCallback.class ]; then echo "Class file not generated: .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/RpcCallback.class, or it was generated in an unexpected location. Make sure java_root is specified correctly or the package name for the object is: com.google.protobuf.RpcCallback.class"; exit 1; fi
+	@touch .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/RpcCallback.class
+
+
+.gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/RpcChannel.class: .gen-obj/third_party/protobuf/.java_protocompile.dummy .gen-files/.dummy.prereqs
+	@if [ ! -f .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/RpcChannel.class ]; then echo "Class file not generated: .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/RpcChannel.class, or it was generated in an unexpected location. Make sure java_root is specified correctly or the package name for the object is: com.google.protobuf.RpcChannel.class"; exit 1; fi
+	@touch .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/RpcChannel.class
+
+
+.gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/RpcController.class: .gen-obj/third_party/protobuf/.java_protocompile.dummy .gen-files/.dummy.prereqs
+	@if [ ! -f .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/RpcController.class ]; then echo "Class file not generated: .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/RpcController.class, or it was generated in an unexpected location. Make sure java_root is specified correctly or the package name for the object is: com.google.protobuf.RpcController.class"; exit 1; fi
+	@touch .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/RpcController.class
+
+
+.gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/RpcUtil.class: .gen-obj/third_party/protobuf/.java_protocompile.dummy .gen-files/.dummy.prereqs
+	@if [ ! -f .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/RpcUtil.class ]; then echo "Class file not generated: .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/RpcUtil.class, or it was generated in an unexpected location. Make sure java_root is specified correctly or the package name for the object is: com.google.protobuf.RpcUtil.class"; exit 1; fi
+	@touch .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/RpcUtil.class
+
+
+.gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/Service.class: .gen-obj/third_party/protobuf/.java_protocompile.dummy .gen-files/.dummy.prereqs
+	@if [ ! -f .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/Service.class ]; then echo "Class file not generated: .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/Service.class, or it was generated in an unexpected location. Make sure java_root is specified correctly or the package name for the object is: com.google.protobuf.Service.class"; exit 1; fi
+	@touch .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/Service.class
+
+
+.gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/ServiceException.class: .gen-obj/third_party/protobuf/.java_protocompile.dummy .gen-files/.dummy.prereqs
+	@if [ ! -f .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/ServiceException.class ]; then echo "Class file not generated: .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/ServiceException.class, or it was generated in an unexpected location. Make sure java_root is specified correctly or the package name for the object is: com.google.protobuf.ServiceException.class"; exit 1; fi
+	@touch .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/ServiceException.class
+
+
+.gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/SingleFieldBuilder.class: .gen-obj/third_party/protobuf/.java_protocompile.dummy .gen-files/.dummy.prereqs
+	@if [ ! -f .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/SingleFieldBuilder.class ]; then echo "Class file not generated: .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/SingleFieldBuilder.class, or it was generated in an unexpected location. Make sure java_root is specified correctly or the package name for the object is: com.google.protobuf.SingleFieldBuilder.class"; exit 1; fi
+	@touch .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/SingleFieldBuilder.class
+
+
+.gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/SmallSortedMap.class: .gen-obj/third_party/protobuf/.java_protocompile.dummy .gen-files/.dummy.prereqs
+	@if [ ! -f .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/SmallSortedMap.class ]; then echo "Class file not generated: .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/SmallSortedMap.class, or it was generated in an unexpected location. Make sure java_root is specified correctly or the package name for the object is: com.google.protobuf.SmallSortedMap.class"; exit 1; fi
+	@touch .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/SmallSortedMap.class
+
+
+.gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/TextFormat.class: .gen-obj/third_party/protobuf/.java_protocompile.dummy .gen-files/.dummy.prereqs
+	@if [ ! -f .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/TextFormat.class ]; then echo "Class file not generated: .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/TextFormat.class, or it was generated in an unexpected location. Make sure java_root is specified correctly or the package name for the object is: com.google.protobuf.TextFormat.class"; exit 1; fi
+	@touch .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/TextFormat.class
+
+
+.gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/UninitializedMessageException.class: .gen-obj/third_party/protobuf/.java_protocompile.dummy .gen-files/.dummy.prereqs
+	@if [ ! -f .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/UninitializedMessageException.class ]; then echo "Class file not generated: .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/UninitializedMessageException.class, or it was generated in an unexpected location. Make sure java_root is specified correctly or the package name for the object is: com.google.protobuf.UninitializedMessageException.class"; exit 1; fi
+	@touch .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/UninitializedMessageException.class
+
+
+.gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/UnknownFieldSet.class: .gen-obj/third_party/protobuf/.java_protocompile.dummy .gen-files/.dummy.prereqs
+	@if [ ! -f .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/UnknownFieldSet.class ]; then echo "Class file not generated: .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/UnknownFieldSet.class, or it was generated in an unexpected location. Make sure java_root is specified correctly or the package name for the object is: com.google.protobuf.UnknownFieldSet.class"; exit 1; fi
+	@touch .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/UnknownFieldSet.class
+
+
+.gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/UnmodifiableLazyStringList.class: .gen-obj/third_party/protobuf/.java_protocompile.dummy .gen-files/.dummy.prereqs
+	@if [ ! -f .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/UnmodifiableLazyStringList.class ]; then echo "Class file not generated: .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/UnmodifiableLazyStringList.class, or it was generated in an unexpected location. Make sure java_root is specified correctly or the package name for the object is: com.google.protobuf.UnmodifiableLazyStringList.class"; exit 1; fi
+	@touch .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/UnmodifiableLazyStringList.class
+
+
+.gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/Utf8.class: .gen-obj/third_party/protobuf/.java_protocompile.dummy .gen-files/.dummy.prereqs
+	@if [ ! -f .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/Utf8.class ]; then echo "Class file not generated: .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/Utf8.class, or it was generated in an unexpected location. Make sure java_root is specified correctly or the package name for the object is: com.google.protobuf.Utf8.class"; exit 1; fi
+	@touch .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/Utf8.class
+
+
+.gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/WireFormat.class: .gen-obj/third_party/protobuf/.java_protocompile.dummy .gen-files/.dummy.prereqs
+	@if [ ! -f .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/WireFormat.class ]; then echo "Class file not generated: .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/WireFormat.class, or it was generated in an unexpected location. Make sure java_root is specified correctly or the package name for the object is: com.google.protobuf.WireFormat.class"; exit 1; fi
+	@touch .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/WireFormat.class
+
+
+.gen-obj/lib_third_party/protobuf/java_proto/.dummy.touch: .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/AbstractMessage.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/AbstractMessageLite.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/AbstractParser.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/BlockingRpcChannel.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/BlockingService.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/BoundedByteString.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/ByteString.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/CodedInputStream.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/CodedOutputStream.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/Descriptors.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/DynamicMessage.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/ExtensionRegistry.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/ExtensionRegistryLite.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/FieldSet.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/GeneratedMessage.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/GeneratedMessageLite.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/Internal.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/InvalidProtocolBufferException.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/LazyField.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/LazyStringArrayList.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/LazyStringList.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/LiteralByteString.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/Message.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/MessageLite.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/MessageLiteOrBuilder.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/MessageOrBuilder.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/Parser.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/ProtocolMessageEnum.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/RepeatedFieldBuilder.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/RopeByteString.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/RpcCallback.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/RpcChannel.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/RpcController.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/RpcUtil.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/Service.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/ServiceException.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/SingleFieldBuilder.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/SmallSortedMap.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/TextFormat.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/UninitializedMessageException.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/UnknownFieldSet.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/UnmodifiableLazyStringList.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/Utf8.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/WireFormat.class .gen-files/.dummy.prereqs
+	@mkdir -p .gen-obj/lib_third_party/protobuf/java_proto
+	@touch .gen-obj/lib_third_party/protobuf/java_proto/.dummy.touch
+
+third_party/protobuf/java_proto: .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/AbstractMessage.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/AbstractMessageLite.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/AbstractParser.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/BlockingRpcChannel.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/BlockingService.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/BoundedByteString.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/ByteString.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/CodedInputStream.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/CodedOutputStream.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/Descriptors.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/DynamicMessage.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/ExtensionRegistry.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/ExtensionRegistryLite.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/FieldSet.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/GeneratedMessage.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/GeneratedMessageLite.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/Internal.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/InvalidProtocolBufferException.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/LazyField.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/LazyStringArrayList.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/LazyStringList.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/LiteralByteString.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/Message.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/MessageLite.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/MessageLiteOrBuilder.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/MessageOrBuilder.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/Parser.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/ProtocolMessageEnum.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/RepeatedFieldBuilder.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/RopeByteString.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/RpcCallback.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/RpcChannel.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/RpcController.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/RpcUtil.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/Service.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/ServiceException.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/SingleFieldBuilder.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/SmallSortedMap.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/TextFormat.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/UninitializedMessageException.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/UnknownFieldSet.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/UnmodifiableLazyStringList.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/Utf8.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/WireFormat.class third_party/protobuf/generate_java_descriptor_proto third_party/protobuf/auto_.0 third_party/auto_.0
+
+.PHONY: third_party/protobuf/java_proto
+
+
+.gen-obj/.my_proto.0.dummy: .gen-obj/third_party/protobuf/.generate_java_descriptor_proto.dummy .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/google/.dummy .gen-src/.gen-files/google/.dummy .gen-src/.gen-pkg/google/.dummy third_party/protobuf/java/src/main/java/com/google/protobuf/AbstractMessage.java third_party/protobuf/java/src/main/java/com/google/protobuf/AbstractMessageLite.java third_party/protobuf/java/src/main/java/com/google/protobuf/AbstractParser.java third_party/protobuf/java/src/main/java/com/google/protobuf/BlockingRpcChannel.java third_party/protobuf/java/src/main/java/com/google/protobuf/BlockingService.java third_party/protobuf/java/src/main/java/com/google/protobuf/BoundedByteString.java third_party/protobuf/java/src/main/java/com/google/protobuf/ByteString.java third_party/protobuf/java/src/main/java/com/google/protobuf/CodedInputStream.java third_party/protobuf/java/src/main/java/com/google/protobuf/CodedOutputStream.java third_party/protobuf/java/src/main/java/com/google/protobuf/Descriptors.java third_party/protobuf/java/src/main/java/com/google/protobuf/DynamicMessage.java third_party/protobuf/java/src/main/java/com/google/protobuf/ExtensionRegistry.java third_party/protobuf/java/src/main/java/com/google/protobuf/ExtensionRegistryLite.java third_party/protobuf/java/src/main/java/com/google/protobuf/FieldSet.java third_party/protobuf/java/src/main/java/com/google/protobuf/GeneratedMessage.java third_party/protobuf/java/src/main/java/com/google/protobuf/GeneratedMessageLite.java third_party/protobuf/java/src/main/java/com/google/protobuf/Internal.java third_party/protobuf/java/src/main/java/com/google/protobuf/InvalidProtocolBufferException.java third_party/protobuf/java/src/main/java/com/google/protobuf/LazyField.java third_party/protobuf/java/src/main/java/com/google/protobuf/LazyStringArrayList.java third_party/protobuf/java/src/main/java/com/google/protobuf/LazyStringList.java third_party/protobuf/java/src/main/java/com/google/protobuf/LiteralByteString.java third_party/protobuf/java/src/main/java/com/google/protobuf/Message.java third_party/protobuf/java/src/main/java/com/google/protobuf/MessageLite.java third_party/protobuf/java/src/main/java/com/google/protobuf/MessageLiteOrBuilder.java third_party/protobuf/java/src/main/java/com/google/protobuf/MessageOrBuilder.java third_party/protobuf/java/src/main/java/com/google/protobuf/Parser.java third_party/protobuf/java/src/main/java/com/google/protobuf/ProtocolMessageEnum.java third_party/protobuf/java/src/main/java/com/google/protobuf/RepeatedFieldBuilder.java third_party/protobuf/java/src/main/java/com/google/protobuf/RopeByteString.java third_party/protobuf/java/src/main/java/com/google/protobuf/RpcCallback.java third_party/protobuf/java/src/main/java/com/google/protobuf/RpcChannel.java third_party/protobuf/java/src/main/java/com/google/protobuf/RpcController.java third_party/protobuf/java/src/main/java/com/google/protobuf/RpcUtil.java third_party/protobuf/java/src/main/java/com/google/protobuf/Service.java third_party/protobuf/java/src/main/java/com/google/protobuf/ServiceException.java third_party/protobuf/java/src/main/java/com/google/protobuf/SingleFieldBuilder.java third_party/protobuf/java/src/main/java/com/google/protobuf/SmallSortedMap.java third_party/protobuf/java/src/main/java/com/google/protobuf/TextFormat.java third_party/protobuf/java/src/main/java/com/google/protobuf/UninitializedMessageException.java third_party/protobuf/java/src/main/java/com/google/protobuf/UnknownFieldSet.java third_party/protobuf/java/src/main/java/com/google/protobuf/UnmodifiableLazyStringList.java third_party/protobuf/java/src/main/java/com/google/protobuf/Utf8.java third_party/protobuf/java/src/main/java/com/google/protobuf/WireFormat.java .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/AbstractMessage.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/AbstractMessageLite.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/AbstractParser.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/BlockingRpcChannel.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/BlockingService.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/BoundedByteString.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/ByteString.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/CodedInputStream.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/CodedOutputStream.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/Descriptors.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/DynamicMessage.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/ExtensionRegistry.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/ExtensionRegistryLite.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/FieldSet.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/GeneratedMessage.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/GeneratedMessageLite.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/Internal.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/InvalidProtocolBufferException.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/LazyField.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/LazyStringArrayList.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/LazyStringList.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/LiteralByteString.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/Message.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/MessageLite.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/MessageLiteOrBuilder.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/MessageOrBuilder.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/Parser.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/ProtocolMessageEnum.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/RepeatedFieldBuilder.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/RopeByteString.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/RpcCallback.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/RpcChannel.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/RpcController.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/RpcUtil.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/Service.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/ServiceException.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/SingleFieldBuilder.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/SmallSortedMap.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/TextFormat.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/UninitializedMessageException.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/UnknownFieldSet.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/UnmodifiableLazyStringList.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/Utf8.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/WireFormat.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/AbstractMessage.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/AbstractMessageLite.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/AbstractParser.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/BlockingRpcChannel.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/BlockingService.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/BoundedByteString.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/ByteString.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/CodedInputStream.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/CodedOutputStream.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/Descriptors.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/DynamicMessage.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/ExtensionRegistry.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/ExtensionRegistryLite.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/FieldSet.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/GeneratedMessage.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/GeneratedMessageLite.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/Internal.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/InvalidProtocolBufferException.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/LazyField.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/LazyStringArrayList.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/LazyStringList.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/LiteralByteString.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/Message.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/MessageLite.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/MessageLiteOrBuilder.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/MessageOrBuilder.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/Parser.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/ProtocolMessageEnum.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/RepeatedFieldBuilder.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/RopeByteString.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/RpcCallback.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/RpcChannel.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/RpcController.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/RpcUtil.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/Service.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/ServiceException.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/SingleFieldBuilder.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/SmallSortedMap.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/TextFormat.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/UninitializedMessageException.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/UnknownFieldSet.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/UnmodifiableLazyStringList.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/Utf8.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/WireFormat.class my_proto.proto .gen-files/.dummy.prereqs
+	@echo "Protobuf:   //:my_proto.0"
+	@(mkdir -p .gen-files; GEN_DIR="$(ROOT_DIR)/.gen-files"; OBJ_DIR="$(ROOT_DIR)/.gen-obj"; SRC_DIR="$(ROOT_DIR)/.gen-src" ROOT_DIR="$(ROOT_DIR)"  CXX_GCC="$(CXX_GCC)" CC_GCC="$(CC_GCC)" CC="$(CC)" CXX="$(CXX)" CXXFLAGS="$(CXXFLAGS)" BASIC_CXXFLAGS="$(BASIC_CXXFLAGS)" CFLAGS="$(CFLAGS)" BASIC_CFLAGS="$(BASIC_CFLAGS)" LDFLAGS="$(LDFLAGS)" MAKE="$(MAKE)" PROTOC="$(ROOT_DIR)/.gen-obj/third_party/protobuf/protoc" DEP_CXXFLAGS="" DEP_CFLAGS="" eval '($$PROTOC --java_out=.gen-files -I. -I.gen-files -I.gen-src -I.gen-src/.gen-files my_proto.proto)' > $(ROOT_DIR)/.gen-files.my_proto.0.logfile 2>&1 || (cat $(ROOT_DIR)/.gen-files.my_proto.0.logfile; exit 1) ) && (mkdir -p .gen-obj; touch .gen-obj/.my_proto.0.dummy)
+
+my_proto.0: .gen-obj/.my_proto.0.dummy third_party/protobuf/java_proto
+
+.PHONY: my_proto.0
+
+
+.gen-files/MyProto.java: .gen-obj/.my_proto.0.dummy .gen-files/.dummy.prereqs
+
+
+.gen-obj/.my_proto.1compile.dummy: .gen-obj/.my_proto.0.dummy .gen-obj/third_party/protobuf/.generate_java_descriptor_proto.dummy .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/google/.dummy .gen-src/.gen-files/google/.dummy .gen-src/.gen-pkg/google/.dummy third_party/protobuf/java/src/main/java/com/google/protobuf/AbstractMessage.java third_party/protobuf/java/src/main/java/com/google/protobuf/AbstractMessageLite.java third_party/protobuf/java/src/main/java/com/google/protobuf/AbstractParser.java third_party/protobuf/java/src/main/java/com/google/protobuf/BlockingRpcChannel.java third_party/protobuf/java/src/main/java/com/google/protobuf/BlockingService.java third_party/protobuf/java/src/main/java/com/google/protobuf/BoundedByteString.java third_party/protobuf/java/src/main/java/com/google/protobuf/ByteString.java third_party/protobuf/java/src/main/java/com/google/protobuf/CodedInputStream.java third_party/protobuf/java/src/main/java/com/google/protobuf/CodedOutputStream.java third_party/protobuf/java/src/main/java/com/google/protobuf/Descriptors.java third_party/protobuf/java/src/main/java/com/google/protobuf/DynamicMessage.java third_party/protobuf/java/src/main/java/com/google/protobuf/ExtensionRegistry.java third_party/protobuf/java/src/main/java/com/google/protobuf/ExtensionRegistryLite.java third_party/protobuf/java/src/main/java/com/google/protobuf/FieldSet.java third_party/protobuf/java/src/main/java/com/google/protobuf/GeneratedMessage.java third_party/protobuf/java/src/main/java/com/google/protobuf/GeneratedMessageLite.java third_party/protobuf/java/src/main/java/com/google/protobuf/Internal.java third_party/protobuf/java/src/main/java/com/google/protobuf/InvalidProtocolBufferException.java third_party/protobuf/java/src/main/java/com/google/protobuf/LazyField.java third_party/protobuf/java/src/main/java/com/google/protobuf/LazyStringArrayList.java third_party/protobuf/java/src/main/java/com/google/protobuf/LazyStringList.java third_party/protobuf/java/src/main/java/com/google/protobuf/LiteralByteString.java third_party/protobuf/java/src/main/java/com/google/protobuf/Message.java third_party/protobuf/java/src/main/java/com/google/protobuf/MessageLite.java third_party/protobuf/java/src/main/java/com/google/protobuf/MessageLiteOrBuilder.java third_party/protobuf/java/src/main/java/com/google/protobuf/MessageOrBuilder.java third_party/protobuf/java/src/main/java/com/google/protobuf/Parser.java third_party/protobuf/java/src/main/java/com/google/protobuf/ProtocolMessageEnum.java third_party/protobuf/java/src/main/java/com/google/protobuf/RepeatedFieldBuilder.java third_party/protobuf/java/src/main/java/com/google/protobuf/RopeByteString.java third_party/protobuf/java/src/main/java/com/google/protobuf/RpcCallback.java third_party/protobuf/java/src/main/java/com/google/protobuf/RpcChannel.java third_party/protobuf/java/src/main/java/com/google/protobuf/RpcController.java third_party/protobuf/java/src/main/java/com/google/protobuf/RpcUtil.java third_party/protobuf/java/src/main/java/com/google/protobuf/Service.java third_party/protobuf/java/src/main/java/com/google/protobuf/ServiceException.java third_party/protobuf/java/src/main/java/com/google/protobuf/SingleFieldBuilder.java third_party/protobuf/java/src/main/java/com/google/protobuf/SmallSortedMap.java third_party/protobuf/java/src/main/java/com/google/protobuf/TextFormat.java third_party/protobuf/java/src/main/java/com/google/protobuf/UninitializedMessageException.java third_party/protobuf/java/src/main/java/com/google/protobuf/UnknownFieldSet.java third_party/protobuf/java/src/main/java/com/google/protobuf/UnmodifiableLazyStringList.java third_party/protobuf/java/src/main/java/com/google/protobuf/Utf8.java third_party/protobuf/java/src/main/java/com/google/protobuf/WireFormat.java .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/AbstractMessage.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/AbstractMessageLite.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/AbstractParser.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/BlockingRpcChannel.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/BlockingService.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/BoundedByteString.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/ByteString.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/CodedInputStream.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/CodedOutputStream.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/Descriptors.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/DynamicMessage.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/ExtensionRegistry.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/ExtensionRegistryLite.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/FieldSet.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/GeneratedMessage.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/GeneratedMessageLite.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/Internal.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/InvalidProtocolBufferException.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/LazyField.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/LazyStringArrayList.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/LazyStringList.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/LiteralByteString.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/Message.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/MessageLite.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/MessageLiteOrBuilder.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/MessageOrBuilder.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/Parser.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/ProtocolMessageEnum.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/RepeatedFieldBuilder.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/RopeByteString.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/RpcCallback.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/RpcChannel.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/RpcController.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/RpcUtil.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/Service.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/ServiceException.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/SingleFieldBuilder.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/SmallSortedMap.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/TextFormat.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/UninitializedMessageException.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/UnknownFieldSet.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/UnmodifiableLazyStringList.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/Utf8.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/WireFormat.class .gen-files/MyProto.java .gen-files/.dummy.prereqs
+	@mkdir -p .gen-obj/lib_my_proto.1
+	@echo "Compiling:  my_proto.1 (java)"
+	@mkdir -p .gen-obj/lib_my_proto.1
+	@javac -d .gen-obj/lib_my_proto.1 -s .gen-files -g -cp  .:.gen-files:.gen-src:.gen-src/.gen-files:.:.gen-files:.gen-files/third_party/protobuf/java/src/main/java:.gen-obj:.gen-obj/lib_my_proto.1:.gen-obj/lib_third_party/protobuf/java_proto:.gen-obj/third_party/protobuf/java/src/main/java:.gen-src:.gen-src/.gen-files:third_party/protobuf/java/src/main/java .gen-files/MyProto.java
+	@mkdir -p .gen-obj
+	@touch .gen-obj/.my_proto.1compile.dummy
+
+
+.gen-obj/lib_my_proto.1/MyProto.class: .gen-obj/.my_proto.1compile.dummy .gen-files/.dummy.prereqs
+	@if [ ! -f .gen-obj/lib_my_proto.1/MyProto.class ]; then echo "Class file not generated: .gen-obj/lib_my_proto.1/MyProto.class, or it was generated in an unexpected location. Make sure java_root is specified correctly or the package name for the object is: MyProto.class"; exit 1; fi
+	@touch .gen-obj/lib_my_proto.1/MyProto.class
+
+
+.gen-obj/lib_my_proto.1/.dummy.touch: .gen-obj/lib_my_proto.1/MyProto.class .gen-files/.dummy.prereqs
+	@mkdir -p .gen-obj/lib_my_proto.1
+	@touch .gen-obj/lib_my_proto.1/.dummy.touch
+
+my_proto.1: .gen-obj/lib_my_proto.1/MyProto.class my_proto.0 third_party/protobuf/java_proto
+
+.PHONY: my_proto.1
+
+my_proto: my_proto.0 my_proto.1
+
+.PHONY: my_proto
+
+
+.gen-obj/.parsercompile.dummy: .gen-obj/.my_proto.0.dummy .gen-obj/third_party/protobuf/.generate_java_descriptor_proto.dummy .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/google/.dummy .gen-src/.gen-files/google/.dummy .gen-src/.gen-pkg/google/.dummy third_party/protobuf/java/src/main/java/com/google/protobuf/AbstractMessage.java third_party/protobuf/java/src/main/java/com/google/protobuf/AbstractMessageLite.java third_party/protobuf/java/src/main/java/com/google/protobuf/AbstractParser.java third_party/protobuf/java/src/main/java/com/google/protobuf/BlockingRpcChannel.java third_party/protobuf/java/src/main/java/com/google/protobuf/BlockingService.java third_party/protobuf/java/src/main/java/com/google/protobuf/BoundedByteString.java third_party/protobuf/java/src/main/java/com/google/protobuf/ByteString.java third_party/protobuf/java/src/main/java/com/google/protobuf/CodedInputStream.java third_party/protobuf/java/src/main/java/com/google/protobuf/CodedOutputStream.java third_party/protobuf/java/src/main/java/com/google/protobuf/Descriptors.java third_party/protobuf/java/src/main/java/com/google/protobuf/DynamicMessage.java third_party/protobuf/java/src/main/java/com/google/protobuf/ExtensionRegistry.java third_party/protobuf/java/src/main/java/com/google/protobuf/ExtensionRegistryLite.java third_party/protobuf/java/src/main/java/com/google/protobuf/FieldSet.java third_party/protobuf/java/src/main/java/com/google/protobuf/GeneratedMessage.java third_party/protobuf/java/src/main/java/com/google/protobuf/GeneratedMessageLite.java third_party/protobuf/java/src/main/java/com/google/protobuf/Internal.java third_party/protobuf/java/src/main/java/com/google/protobuf/InvalidProtocolBufferException.java third_party/protobuf/java/src/main/java/com/google/protobuf/LazyField.java third_party/protobuf/java/src/main/java/com/google/protobuf/LazyStringArrayList.java third_party/protobuf/java/src/main/java/com/google/protobuf/LazyStringList.java third_party/protobuf/java/src/main/java/com/google/protobuf/LiteralByteString.java third_party/protobuf/java/src/main/java/com/google/protobuf/Message.java third_party/protobuf/java/src/main/java/com/google/protobuf/MessageLite.java third_party/protobuf/java/src/main/java/com/google/protobuf/MessageLiteOrBuilder.java third_party/protobuf/java/src/main/java/com/google/protobuf/MessageOrBuilder.java third_party/protobuf/java/src/main/java/com/google/protobuf/Parser.java third_party/protobuf/java/src/main/java/com/google/protobuf/ProtocolMessageEnum.java third_party/protobuf/java/src/main/java/com/google/protobuf/RepeatedFieldBuilder.java third_party/protobuf/java/src/main/java/com/google/protobuf/RopeByteString.java third_party/protobuf/java/src/main/java/com/google/protobuf/RpcCallback.java third_party/protobuf/java/src/main/java/com/google/protobuf/RpcChannel.java third_party/protobuf/java/src/main/java/com/google/protobuf/RpcController.java third_party/protobuf/java/src/main/java/com/google/protobuf/RpcUtil.java third_party/protobuf/java/src/main/java/com/google/protobuf/Service.java third_party/protobuf/java/src/main/java/com/google/protobuf/ServiceException.java third_party/protobuf/java/src/main/java/com/google/protobuf/SingleFieldBuilder.java third_party/protobuf/java/src/main/java/com/google/protobuf/SmallSortedMap.java third_party/protobuf/java/src/main/java/com/google/protobuf/TextFormat.java third_party/protobuf/java/src/main/java/com/google/protobuf/UninitializedMessageException.java third_party/protobuf/java/src/main/java/com/google/protobuf/UnknownFieldSet.java third_party/protobuf/java/src/main/java/com/google/protobuf/UnmodifiableLazyStringList.java third_party/protobuf/java/src/main/java/com/google/protobuf/Utf8.java third_party/protobuf/java/src/main/java/com/google/protobuf/WireFormat.java .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/AbstractMessage.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/AbstractMessageLite.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/AbstractParser.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/BlockingRpcChannel.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/BlockingService.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/BoundedByteString.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/ByteString.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/CodedInputStream.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/CodedOutputStream.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/Descriptors.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/DynamicMessage.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/ExtensionRegistry.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/ExtensionRegistryLite.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/FieldSet.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/GeneratedMessage.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/GeneratedMessageLite.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/Internal.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/InvalidProtocolBufferException.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/LazyField.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/LazyStringArrayList.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/LazyStringList.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/LiteralByteString.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/Message.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/MessageLite.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/MessageLiteOrBuilder.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/MessageOrBuilder.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/Parser.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/ProtocolMessageEnum.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/RepeatedFieldBuilder.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/RopeByteString.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/RpcCallback.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/RpcChannel.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/RpcController.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/RpcUtil.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/Service.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/ServiceException.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/SingleFieldBuilder.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/SmallSortedMap.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/TextFormat.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/UninitializedMessageException.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/UnknownFieldSet.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/UnmodifiableLazyStringList.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/Utf8.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/WireFormat.class .gen-files/MyProto.java .gen-obj/lib_my_proto.1/MyProto.class Parser.java .gen-files/.dummy.prereqs
 	@mkdir -p .gen-obj/lib_parser
 	@echo "Compiling:  parser (java)"
 	@mkdir -p .gen-obj/lib_parser
-	@javac -d .gen-obj/lib_parser -s .gen-files -g -cp  .:.gen-files:.gen-src:.gen-src/.gen-files:.:.gen-files:.gen-obj:.gen-obj/lib_parser:.gen-src Parser.java
+	@javac -d .gen-obj/lib_parser -s .gen-files -g -cp  .:.gen-files:.gen-src:.gen-src/.gen-files:.:.gen-files:.gen-files/third_party/protobuf/java/src/main/java:.gen-obj:.gen-obj/lib_my_proto.1:.gen-obj/lib_parser:.gen-obj/lib_third_party/protobuf/java_proto:.gen-obj/third_party/protobuf/java/src/main/java:.gen-src:.gen-src/.gen-files:third_party/protobuf/java/src/main/java Parser.java
 	@mkdir -p .gen-obj
 	@touch .gen-obj/.parsercompile.dummy
 
@@ -97,7 +885,7 @@ export FlockScript
 	@mkdir -p .gen-obj/lib_parser
 	@touch .gen-obj/lib_parser/.dummy.touch
 
-parser: .gen-obj/lib_parser/Parser.class
+parser: .gen-obj/lib_parser/Parser.class my_proto
 
 .PHONY: parser
 
@@ -124,11 +912,11 @@ checker.0:
 .PHONY: checker.0
 
 
-.gen-obj/.checkercompile.dummy: Parser.java .gen-obj/lib_parser/Parser.class Checker.java .gen-files/.dummy.prereqs
+.gen-obj/.checkercompile.dummy: .gen-obj/.my_proto.0.dummy .gen-obj/third_party/protobuf/.generate_java_descriptor_proto.dummy .gen-src/third_party/.dummy .gen-src/.gen-files/third_party/.dummy .gen-src/.gen-pkg/third_party/.dummy .gen-src/google/.dummy .gen-src/.gen-files/google/.dummy .gen-src/.gen-pkg/google/.dummy third_party/protobuf/java/src/main/java/com/google/protobuf/AbstractMessage.java third_party/protobuf/java/src/main/java/com/google/protobuf/AbstractMessageLite.java third_party/protobuf/java/src/main/java/com/google/protobuf/AbstractParser.java third_party/protobuf/java/src/main/java/com/google/protobuf/BlockingRpcChannel.java third_party/protobuf/java/src/main/java/com/google/protobuf/BlockingService.java third_party/protobuf/java/src/main/java/com/google/protobuf/BoundedByteString.java third_party/protobuf/java/src/main/java/com/google/protobuf/ByteString.java third_party/protobuf/java/src/main/java/com/google/protobuf/CodedInputStream.java third_party/protobuf/java/src/main/java/com/google/protobuf/CodedOutputStream.java third_party/protobuf/java/src/main/java/com/google/protobuf/Descriptors.java third_party/protobuf/java/src/main/java/com/google/protobuf/DynamicMessage.java third_party/protobuf/java/src/main/java/com/google/protobuf/ExtensionRegistry.java third_party/protobuf/java/src/main/java/com/google/protobuf/ExtensionRegistryLite.java third_party/protobuf/java/src/main/java/com/google/protobuf/FieldSet.java third_party/protobuf/java/src/main/java/com/google/protobuf/GeneratedMessage.java third_party/protobuf/java/src/main/java/com/google/protobuf/GeneratedMessageLite.java third_party/protobuf/java/src/main/java/com/google/protobuf/Internal.java third_party/protobuf/java/src/main/java/com/google/protobuf/InvalidProtocolBufferException.java third_party/protobuf/java/src/main/java/com/google/protobuf/LazyField.java third_party/protobuf/java/src/main/java/com/google/protobuf/LazyStringArrayList.java third_party/protobuf/java/src/main/java/com/google/protobuf/LazyStringList.java third_party/protobuf/java/src/main/java/com/google/protobuf/LiteralByteString.java third_party/protobuf/java/src/main/java/com/google/protobuf/Message.java third_party/protobuf/java/src/main/java/com/google/protobuf/MessageLite.java third_party/protobuf/java/src/main/java/com/google/protobuf/MessageLiteOrBuilder.java third_party/protobuf/java/src/main/java/com/google/protobuf/MessageOrBuilder.java third_party/protobuf/java/src/main/java/com/google/protobuf/Parser.java third_party/protobuf/java/src/main/java/com/google/protobuf/ProtocolMessageEnum.java third_party/protobuf/java/src/main/java/com/google/protobuf/RepeatedFieldBuilder.java third_party/protobuf/java/src/main/java/com/google/protobuf/RopeByteString.java third_party/protobuf/java/src/main/java/com/google/protobuf/RpcCallback.java third_party/protobuf/java/src/main/java/com/google/protobuf/RpcChannel.java third_party/protobuf/java/src/main/java/com/google/protobuf/RpcController.java third_party/protobuf/java/src/main/java/com/google/protobuf/RpcUtil.java third_party/protobuf/java/src/main/java/com/google/protobuf/Service.java third_party/protobuf/java/src/main/java/com/google/protobuf/ServiceException.java third_party/protobuf/java/src/main/java/com/google/protobuf/SingleFieldBuilder.java third_party/protobuf/java/src/main/java/com/google/protobuf/SmallSortedMap.java third_party/protobuf/java/src/main/java/com/google/protobuf/TextFormat.java third_party/protobuf/java/src/main/java/com/google/protobuf/UninitializedMessageException.java third_party/protobuf/java/src/main/java/com/google/protobuf/UnknownFieldSet.java third_party/protobuf/java/src/main/java/com/google/protobuf/UnmodifiableLazyStringList.java third_party/protobuf/java/src/main/java/com/google/protobuf/Utf8.java third_party/protobuf/java/src/main/java/com/google/protobuf/WireFormat.java .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/AbstractMessage.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/AbstractMessageLite.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/AbstractParser.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/BlockingRpcChannel.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/BlockingService.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/BoundedByteString.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/ByteString.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/CodedInputStream.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/CodedOutputStream.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/Descriptors.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/DynamicMessage.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/ExtensionRegistry.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/ExtensionRegistryLite.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/FieldSet.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/GeneratedMessage.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/GeneratedMessageLite.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/Internal.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/InvalidProtocolBufferException.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/LazyField.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/LazyStringArrayList.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/LazyStringList.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/LiteralByteString.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/Message.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/MessageLite.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/MessageLiteOrBuilder.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/MessageOrBuilder.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/Parser.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/ProtocolMessageEnum.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/RepeatedFieldBuilder.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/RopeByteString.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/RpcCallback.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/RpcChannel.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/RpcController.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/RpcUtil.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/Service.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/ServiceException.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/SingleFieldBuilder.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/SmallSortedMap.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/TextFormat.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/UninitializedMessageException.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/UnknownFieldSet.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/UnmodifiableLazyStringList.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/Utf8.class .gen-obj/lib_third_party/protobuf/java_proto/com/google/protobuf/WireFormat.class .gen-files/MyProto.java .gen-obj/lib_my_proto.1/MyProto.class Parser.java .gen-obj/lib_parser/Parser.class Checker.java .gen-files/.dummy.prereqs
 	@mkdir -p .gen-obj/lib_checker
 	@echo "Compiling:  checker (java)"
 	@mkdir -p .gen-obj/lib_checker
-	@javac -d .gen-obj/lib_checker -s .gen-files -g -cp  .:.gen-files:.gen-src:.gen-src/.gen-files:.:.gen-files:.gen-obj:.gen-obj/lib_checker:.gen-obj/lib_parser:.gen-src Checker.java
+	@javac -d .gen-obj/lib_checker -s .gen-files -g -cp  .:.gen-files:.gen-src:.gen-src/.gen-files:.:.gen-files:.gen-files/third_party/protobuf/java/src/main/java:.gen-obj:.gen-obj/lib_checker:.gen-obj/lib_my_proto.1:.gen-obj/lib_parser:.gen-obj/lib_third_party/protobuf/java_proto:.gen-obj/third_party/protobuf/java/src/main/java:.gen-src:.gen-src/.gen-files:third_party/protobuf/java/src/main/java Checker.java
 	@mkdir -p .gen-obj
 	@touch .gen-obj/.checkercompile.dummy
 
@@ -141,6 +929,20 @@ checker.0:
 .gen-obj/lib_checker/.dummy.touch: .gen-obj/lib_checker/Checker.class .gen-files/.dummy.prereqs
 	@mkdir -p .gen-obj/lib_checker
 	@touch .gen-obj/lib_checker/.dummy.touch
+
+
+.gen-obj/.checker2E67656E2D6F626A2F6C69625F74686972645F70617274792F70726F746F6275662F6A6176615F70726F746F2F2E64756D6D792E746F756368.dummy: .gen-obj/lib_third_party/protobuf/java_proto/.dummy.touch .gen-files/.dummy.prereqs
+	@mkdir -p .gen-pkg/checker
+	@FILES=$$(cd .gen-obj/lib_third_party/protobuf/java_proto; find . -type f -o -type l); cd .gen-pkg/checker; for file in $$FILES; do mkdir -p $$(dirname $$file); RELATIVE=$$(FILE=$$(dirname $$file); while [ "$$FILE" != "." ];   do printf '../'; FILE=$$(dirname $$FILE); done);  ln -s -f $$RELATIVE../../.gen-obj/lib_third_party/protobuf/java_proto/$$file $$file; done
+	@mkdir -p .gen-obj
+	@touch .gen-obj/.checker2E67656E2D6F626A2F6C69625F74686972645F70617274792F70726F746F6275662F6A6176615F70726F746F2F2E64756D6D792E746F756368.dummy
+
+
+.gen-obj/.checker2E67656E2D6F626A2F6C69625F6D795F70726F746F2E312F2E64756D6D792E746F756368.dummy: .gen-obj/lib_my_proto.1/.dummy.touch .gen-files/.dummy.prereqs
+	@mkdir -p .gen-pkg/checker
+	@FILES=$$(cd .gen-obj/lib_my_proto.1; find . -type f -o -type l); cd .gen-pkg/checker; for file in $$FILES; do mkdir -p $$(dirname $$file); RELATIVE=$$(FILE=$$(dirname $$file); while [ "$$FILE" != "." ];   do printf '../'; FILE=$$(dirname $$FILE); done);  ln -s -f $$RELATIVE../../.gen-obj/lib_my_proto.1/$$file $$file; done
+	@mkdir -p .gen-obj
+	@touch .gen-obj/.checker2E67656E2D6F626A2F6C69625F6D795F70726F746F2E312F2E64756D6D792E746F756368.dummy
 
 
 .gen-obj/.checker2E67656E2D6F626A2F6C69625F7061727365722F2E64756D6D792E746F756368.dummy: .gen-obj/lib_parser/.dummy.touch .gen-files/.dummy.prereqs
@@ -162,7 +964,7 @@ checker.0:
 	@eval 'rm -f .gen-files/checker.manifest; for line in "Main-class: Checker"; do echo "$$line" >> .gen-files/checker.manifest; done; touch .gen-files/checker.manifest'
 
 
-.gen-obj/checker.jar: .gen-files/checker.manifest .gen-obj/.checker2E67656E2D6F626A2F6C69625F7061727365722F2E64756D6D792E746F756368.dummy .gen-obj/.checker2E67656E2D6F626A2F6C69625F636865636B65722F2E64756D6D792E746F756368.dummy .gen-files/.dummy.prereqs
+.gen-obj/checker.jar: .gen-files/checker.manifest .gen-obj/.checker2E67656E2D6F626A2F6C69625F74686972645F70617274792F70726F746F6275662F6A6176615F70726F746F2F2E64756D6D792E746F756368.dummy .gen-obj/.checker2E67656E2D6F626A2F6C69625F6D795F70726F746F2E312F2E64756D6D792E746F756368.dummy .gen-obj/.checker2E67656E2D6F626A2F6C69625F7061727365722F2E64756D6D792E746F756368.dummy .gen-obj/.checker2E67656E2D6F626A2F6C69625F636865636B65722F2E64756D6D792E746F756368.dummy .gen-files/.dummy.prereqs
 	@echo "Jaring:     .gen-obj/checker.jar"
 	@mkdir -p .gen-pkg/checker
 	@cd .gen-pkg/checker ; jar cfm ../../.gen-obj/checker.jar ../../.gen-files/checker.manifest $$(find . -type f -o -type l)
@@ -172,7 +974,692 @@ checker.0:
 	@echo 'java -jar $$(pwd)/$$(dirname $$0)/.gen-obj/checker.jar' > .gen-obj/checker; chmod 755 .gen-obj/checker
 
 
+.gen-files/third_party/.git_tree.dummy: .gen-files/flock_script.pl
+	@[ -f third_party/.git ] || echo "Sourcing:   //third_party (git submodule)"
+	@[ -d third_party -a ! -f third_party/.git -a  -e .git ] && (touch .gen-files/.gitlock; .gen-files/flock_script.pl .gen-files/.gitlock 'cd .; git submodule update --init third_party || exit 1'); true
+	@mkdir -p .gen-files/third_party
+	@[ -f .gen-files/third_party/.git_tree.dummy ] || touch -t 197101010000 .gen-files/third_party/.git_tree.dummy
+
+
+.gen-files/third_party/protobuf/.git_tree.dummy: .gen-files/third_party/.git_tree.dummy .gen-files/flock_script.pl
+	@[ -f third_party/protobuf/.git ] || echo "Sourcing:   //third_party/protobuf (git submodule)"
+	@[ -d third_party/protobuf -a ! -f third_party/protobuf/.git -a  -e third_party/.git ] && (touch .gen-files/.gitlock; .gen-files/flock_script.pl .gen-files/.gitlock 'cd third_party; git submodule update --init protobuf || exit 1'); true
+	@mkdir -p .gen-files/third_party/protobuf
+	@[ -f .gen-files/third_party/protobuf/.git_tree.dummy ] || touch -t 197101010000 .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/BUILD: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/config.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/java/src/main/java: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/java/src/main/java/com/google/protobuf/AbstractMessage.java: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/java/src/main/java/com/google/protobuf/AbstractMessageLite.java: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/java/src/main/java/com/google/protobuf/AbstractParser.java: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/java/src/main/java/com/google/protobuf/BlockingRpcChannel.java: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/java/src/main/java/com/google/protobuf/BlockingService.java: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/java/src/main/java/com/google/protobuf/BoundedByteString.java: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/java/src/main/java/com/google/protobuf/ByteString.java: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/java/src/main/java/com/google/protobuf/CodedInputStream.java: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/java/src/main/java/com/google/protobuf/CodedOutputStream.java: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/java/src/main/java/com/google/protobuf/Descriptors.java: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/java/src/main/java/com/google/protobuf/DynamicMessage.java: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/java/src/main/java/com/google/protobuf/ExtensionRegistry.java: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/java/src/main/java/com/google/protobuf/ExtensionRegistryLite.java: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/java/src/main/java/com/google/protobuf/FieldSet.java: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/java/src/main/java/com/google/protobuf/GeneratedMessage.java: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/java/src/main/java/com/google/protobuf/GeneratedMessageLite.java: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/java/src/main/java/com/google/protobuf/Internal.java: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/java/src/main/java/com/google/protobuf/InvalidProtocolBufferException.java: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/java/src/main/java/com/google/protobuf/LazyField.java: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/java/src/main/java/com/google/protobuf/LazyStringArrayList.java: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/java/src/main/java/com/google/protobuf/LazyStringList.java: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/java/src/main/java/com/google/protobuf/LiteralByteString.java: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/java/src/main/java/com/google/protobuf/Message.java: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/java/src/main/java/com/google/protobuf/MessageLite.java: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/java/src/main/java/com/google/protobuf/MessageLiteOrBuilder.java: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/java/src/main/java/com/google/protobuf/MessageOrBuilder.java: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/java/src/main/java/com/google/protobuf/Parser.java: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/java/src/main/java/com/google/protobuf/ProtocolMessageEnum.java: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/java/src/main/java/com/google/protobuf/RepeatedFieldBuilder.java: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/java/src/main/java/com/google/protobuf/RopeByteString.java: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/java/src/main/java/com/google/protobuf/RpcCallback.java: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/java/src/main/java/com/google/protobuf/RpcChannel.java: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/java/src/main/java/com/google/protobuf/RpcController.java: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/java/src/main/java/com/google/protobuf/RpcUtil.java: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/java/src/main/java/com/google/protobuf/Service.java: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/java/src/main/java/com/google/protobuf/ServiceException.java: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/java/src/main/java/com/google/protobuf/SingleFieldBuilder.java: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/java/src/main/java/com/google/protobuf/SmallSortedMap.java: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/java/src/main/java/com/google/protobuf/TextFormat.java: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/java/src/main/java/com/google/protobuf/UninitializedMessageException.java: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/java/src/main/java/com/google/protobuf/UnknownFieldSet.java: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/java/src/main/java/com/google/protobuf/UnmodifiableLazyStringList.java: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/java/src/main/java/com/google/protobuf/Utf8.java: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/java/src/main/java/com/google/protobuf/WireFormat.java: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/python: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/python/google/protobuf/descriptor.py: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/python/google/protobuf/descriptor_database.py: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/python/google/protobuf/descriptor_pool.py: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/python/google/protobuf/internal/api_implementation.py: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/python/google/protobuf/internal/containers.py: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/python/google/protobuf/internal/cpp_message.py: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/python/google/protobuf/internal/decoder.py: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/python/google/protobuf/internal/encoder.py: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/python/google/protobuf/internal/enum_type_wrapper.py: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/python/google/protobuf/internal/message_listener.py: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/python/google/protobuf/internal/python_message.py: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/python/google/protobuf/internal/type_checkers.py: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/python/google/protobuf/internal/wire_format.py: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/python/google/protobuf/message.py: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/python/google/protobuf/message_factory.py: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/python/google/protobuf/reflection.py: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/python/google/protobuf/service.py: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/python/google/protobuf/service_reflection.py: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/python/google/protobuf/text_format.py: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/compiler/code_generator.cc: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/compiler/code_generator.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/compiler/command_line_interface.cc: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/compiler/command_line_interface.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_enum.cc: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_enum.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_enum_field.cc: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_enum_field.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_extension.cc: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_extension.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_field.cc: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_field.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_file.cc: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_file.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_generator.cc: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_generator.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_helpers.cc: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_helpers.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_message.cc: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_message.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_message_field.cc: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_message_field.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_options.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_primitive_field.cc: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_primitive_field.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_service.cc: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_service.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_string_field.cc: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/compiler/cpp/cpp_string_field.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/compiler/importer.cc: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/compiler/importer.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/compiler/java/java_doc_comment.cc: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/compiler/java/java_doc_comment.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/compiler/java/java_enum.cc: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/compiler/java/java_enum.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/compiler/java/java_enum_field.cc: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/compiler/java/java_enum_field.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/compiler/java/java_extension.cc: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/compiler/java/java_extension.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/compiler/java/java_field.cc: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/compiler/java/java_field.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/compiler/java/java_file.cc: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/compiler/java/java_file.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/compiler/java/java_generator.cc: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/compiler/java/java_generator.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/compiler/java/java_helpers.cc: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/compiler/java/java_helpers.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/compiler/java/java_message.cc: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/compiler/java/java_message.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/compiler/java/java_message_field.cc: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/compiler/java/java_message_field.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/compiler/java/java_primitive_field.cc: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/compiler/java/java_primitive_field.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/compiler/java/java_service.cc: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/compiler/java/java_service.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/compiler/java/java_string_field.cc: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/compiler/java/java_string_field.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/compiler/main.cc: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/compiler/package_info.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/compiler/parser.cc: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/compiler/parser.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/compiler/plugin.cc: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/compiler/plugin.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/compiler/plugin.pb.cc: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/compiler/plugin.pb.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/compiler/python: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/compiler/python/python_generator.cc: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/compiler/python/python_generator.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/compiler/subprocess.cc: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/compiler/subprocess.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/compiler/zip_writer.cc: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/compiler/zip_writer.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/descriptor.cc: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/descriptor.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/descriptor.pb.cc: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/descriptor.pb.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/descriptor_database.cc: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/descriptor_database.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/dynamic_message.cc: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/dynamic_message.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/extension_set.cc: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/extension_set.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/extension_set_heavy.cc: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/generated_enum_reflection.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/generated_message_reflection.cc: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/generated_message_reflection.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/generated_message_util.cc: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/generated_message_util.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/io/coded_stream.cc: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/io/coded_stream.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/io/coded_stream_inl.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/io/gzip_stream.cc: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/io/gzip_stream.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/io/package_info.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/io/printer.cc: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/io/printer.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/io/tokenizer.cc: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/io/tokenizer.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/io/zero_copy_stream.cc: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/io/zero_copy_stream.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/io/zero_copy_stream_impl.cc: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/io/zero_copy_stream_impl.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/io/zero_copy_stream_impl_lite.cc: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/io/zero_copy_stream_impl_lite.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/message.cc: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/message.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/message_lite.cc: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/message_lite.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/package_info.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/reflection_ops.cc: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/reflection_ops.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/repeated_field.cc: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/repeated_field.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/service.cc: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/service.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/stubs/atomicops.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/stubs/atomicops_internals_arm_gcc.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/stubs/atomicops_internals_arm_qnx.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/stubs/atomicops_internals_atomicword_compat.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/stubs/atomicops_internals_macosx.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/stubs/atomicops_internals_mips_gcc.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/stubs/atomicops_internals_pnacl.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/stubs/atomicops_internals_x86_gcc.cc: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/stubs/atomicops_internals_x86_gcc.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/stubs/atomicops_internals_x86_msvc.cc: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/stubs/atomicops_internals_x86_msvc.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/stubs/common.cc: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/stubs/common.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/stubs/hash.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/stubs/map-util.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/stubs/once.cc: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/stubs/once.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/stubs/platform_macros.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/stubs/stl_util.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/stubs/stringprintf.cc: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/stubs/stringprintf.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/stubs/structurally_valid.cc: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/stubs/strutil.cc: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/stubs/strutil.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/stubs/substitute.cc: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/stubs/substitute.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/stubs/template_util.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/stubs/type_traits.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/text_format.cc: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/text_format.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/unknown_field_set.cc: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/unknown_field_set.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/wire_format.cc: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/wire_format.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/wire_format_lite.cc: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/wire_format_lite.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/protobuf/src/google/protobuf/wire_format_lite_inl.h: .gen-files/third_party/protobuf/.git_tree.dummy
+
+
+third_party/BUILD: .gen-files/third_party/.git_tree.dummy
+
+
 clean: .gen-files/.dummy.prereqs
+	@rm -rf .gen-src/third_party/.dummy
+	@rm -rf .gen-src/.gen-files/third_party/.dummy
+	@rm -rf .gen-src/.gen-pkg/third_party/.dummy
+	@rm -rf .gen-src/google/.dummy
+	@rm -rf .gen-src/.gen-files/google/.dummy
+	@rm -rf .gen-src/.gen-pkg/google/.dummy
+	@[ -L protoc ] && rm -f protoc || true
+	@[ -L bin/protoc ] && rm -f bin/protoc || true
 	@[ -L checker ] && rm -f checker || true
 	@[ -L bin/checker ] && rm -f bin/checker || true
 	@[ -L checker.jar ] && rm -f checker.jar || true
@@ -205,14 +1692,14 @@ tests: .gen-files/.dummy.prereqs
 
 licenses: 
 	@echo "License information."
-	@printf "//:checker =>\n\n"
+	@printf "//:checker =>\n    http://opensource.org/licenses/BSD-3-Clause\n\n"
 
 .PHONY: clean all tests install licenses
 
 .DEFAULT_GOAL=all
 
 
-.gen-files/.dummy.prereqs: 
+.gen-files/.dummy.prereqs: .gen-files/third_party/.git_tree.dummy .gen-files/third_party/protobuf/.git_tree.dummy
 	@mkdir -p .gen-files
 	@touch .gen-files/.dummy.prereqs
 

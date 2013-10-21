@@ -1,0 +1,6 @@
+// This is our example proto format.
+
+message FooProto {
+  optional int32 int_val = 1;
+  optional bool bool_val = 2;
+}
